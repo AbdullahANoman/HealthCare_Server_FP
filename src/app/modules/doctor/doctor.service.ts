@@ -1,4 +1,4 @@
-import { Admin, Prisma, UserStatus } from "../../../generated/prisma";
+import { Admin, Doctor, Prisma, UserStatus } from "../../../generated/prisma";
 import { paginationHelper } from "../../../helpers/paginationHelper";
 import { prisma } from "../../../shared/prisma";
 import { IPagination } from "../../interfaces/paginationInterface";
@@ -80,22 +80,6 @@ const getByIdFromDB = async (id: string): Promise<Admin | null> => {
   return result;
 };
 
-const updateIntoDB = async (id: string, data: Partial<Admin>) => {
-  await prisma.admin.findUniqueOrThrow({
-    where: {
-      id,
-      isDeleted: false,
-    },
-  });
-  const result = await prisma.admin.update({
-    where: {
-      id,
-    },
-    data,
-  });
-  return result;
-};
-
 const deleteFromDB = async (id: string) => {
   await prisma.doctor.findUniqueOrThrow({
     where: {
@@ -150,10 +134,41 @@ const softDeleteFromDB = async (id: string) => {
   return result;
 };
 
+type DoctorUpdatePayload = Partial<Doctor> & { specialties?: string[] };
+
+const updateIntoDB = async (id: string, payload: DoctorUpdatePayload) => {
+  const { specialties = [], ...doctorInfo } = payload;
+  await prisma.doctor.findUniqueOrThrow({
+    where: {
+      id,
+      isDeleted: false,
+    },
+  });
+
+  const result = await prisma.$transaction(async (tx) => {
+    const updateDoctor = await prisma.doctor.update({
+      where: {
+        id,
+      },
+      data: doctorInfo,
+    });
+    for (const specialtiesId of specialties) {
+      const createSpecialties = await prisma.doctorSpecialties.create({
+        data: {
+          doctorId: id,
+          specialtiesId: specialtiesId,
+        },
+      });
+    }
+    return updateDoctor;
+  });
+  return result;
+};
+
 export const doctorService = {
   getAllFromDB,
   getByIdFromDB,
-  updateIntoDB,
   deleteFromDB,
   softDeleteFromDB,
+  updateIntoDB,
 };
