@@ -217,6 +217,21 @@ exports.Prisma.MedicalReportScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ScheduleScalarFieldEnum = {
+  id: 'id',
+  startDateTime: 'startDateTime',
+  endDateTime: 'endDateTime',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DoctorScheduleScalarFieldEnum = {
+  doctorId: 'doctorId',
+  scheduleId: 'scheduleId',
+  isBooked: 'isBooked',
+  appointmentId: 'appointmentId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -273,7 +288,9 @@ exports.Prisma.ModelName = {
   PatientHealthData: 'PatientHealthData',
   Specialties: 'Specialties',
   DoctorSpecialties: 'DoctorSpecialties',
-  MedicalReport: 'MedicalReport'
+  MedicalReport: 'MedicalReport',
+  Schedule: 'Schedule',
+  DoctorSchedule: 'DoctorSchedule'
 };
 
 /**

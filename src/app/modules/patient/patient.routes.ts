@@ -28,4 +28,10 @@ router.patch(
 );
 
 router.delete("/:id", patientController.deleteFromDB);
+
+router.delete(
+  "/soft/:id",
+  authValidation(UserRole.SUPER_ADMIN, UserRole.ADMIN),
+  patientController.softDeleteFromDB
+);
 export const PatientRoutes = router;

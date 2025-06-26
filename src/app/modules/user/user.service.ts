@@ -13,6 +13,7 @@ import status from "http-status";
 import { IAuthUser } from "../../interfaces/common";
 
 const createAdmin = async (req: Request) => {
+  console.log(req.body)
   const file = req.file as TFile;
   if (file) {
     const uploadToCloudinary = await fileUploader.uploadToCloudinary(file);
