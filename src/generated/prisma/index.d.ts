@@ -12212,7 +12212,7 @@ export namespace Prisma {
     doctorId: string
     scheduleId: string
     isBooked: boolean
-    appointmentId: string
+    appointmentId: string | null
     _count: DoctorScheduleCountAggregateOutputType | null
     _min: DoctorScheduleMinAggregateOutputType | null
     _max: DoctorScheduleMaxAggregateOutputType | null
@@ -12237,7 +12237,7 @@ export namespace Prisma {
     scheduleId?: boolean
     isBooked?: boolean
     appointmentId?: boolean
-    docotor?: boolean | DoctorDefaultArgs<ExtArgs>
+    doctor?: boolean | DoctorDefaultArgs<ExtArgs>
     schedule?: boolean | ScheduleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["doctorSchedule"]>
 
@@ -12246,7 +12246,7 @@ export namespace Prisma {
     scheduleId?: boolean
     isBooked?: boolean
     appointmentId?: boolean
-    docotor?: boolean | DoctorDefaultArgs<ExtArgs>
+    doctor?: boolean | DoctorDefaultArgs<ExtArgs>
     schedule?: boolean | ScheduleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["doctorSchedule"]>
 
@@ -12255,7 +12255,7 @@ export namespace Prisma {
     scheduleId?: boolean
     isBooked?: boolean
     appointmentId?: boolean
-    docotor?: boolean | DoctorDefaultArgs<ExtArgs>
+    doctor?: boolean | DoctorDefaultArgs<ExtArgs>
     schedule?: boolean | ScheduleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["doctorSchedule"]>
 
@@ -12268,29 +12268,29 @@ export namespace Prisma {
 
   export type DoctorScheduleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"doctorId" | "scheduleId" | "isBooked" | "appointmentId", ExtArgs["result"]["doctorSchedule"]>
   export type DoctorScheduleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    docotor?: boolean | DoctorDefaultArgs<ExtArgs>
+    doctor?: boolean | DoctorDefaultArgs<ExtArgs>
     schedule?: boolean | ScheduleDefaultArgs<ExtArgs>
   }
   export type DoctorScheduleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    docotor?: boolean | DoctorDefaultArgs<ExtArgs>
+    doctor?: boolean | DoctorDefaultArgs<ExtArgs>
     schedule?: boolean | ScheduleDefaultArgs<ExtArgs>
   }
   export type DoctorScheduleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    docotor?: boolean | DoctorDefaultArgs<ExtArgs>
+    doctor?: boolean | DoctorDefaultArgs<ExtArgs>
     schedule?: boolean | ScheduleDefaultArgs<ExtArgs>
   }
 
   export type $DoctorSchedulePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "DoctorSchedule"
     objects: {
-      docotor: Prisma.$DoctorPayload<ExtArgs>
+      doctor: Prisma.$DoctorPayload<ExtArgs>
       schedule: Prisma.$SchedulePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       doctorId: string
       scheduleId: string
       isBooked: boolean
-      appointmentId: string
+      appointmentId: string | null
     }, ExtArgs["result"]["doctorSchedule"]>
     composites: {}
   }
@@ -12685,7 +12685,7 @@ export namespace Prisma {
    */
   export interface Prisma__DoctorScheduleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    docotor<T extends DoctorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DoctorDefaultArgs<ExtArgs>>): Prisma__DoctorClient<$Result.GetResult<Prisma.$DoctorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    doctor<T extends DoctorDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DoctorDefaultArgs<ExtArgs>>): Prisma__DoctorClient<$Result.GetResult<Prisma.$DoctorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     schedule<T extends ScheduleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ScheduleDefaultArgs<ExtArgs>>): Prisma__ScheduleClient<$Result.GetResult<Prisma.$SchedulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -14146,8 +14146,8 @@ export namespace Prisma {
     doctorId?: StringFilter<"DoctorSchedule"> | string
     scheduleId?: StringFilter<"DoctorSchedule"> | string
     isBooked?: BoolFilter<"DoctorSchedule"> | boolean
-    appointmentId?: StringFilter<"DoctorSchedule"> | string
-    docotor?: XOR<DoctorScalarRelationFilter, DoctorWhereInput>
+    appointmentId?: StringNullableFilter<"DoctorSchedule"> | string | null
+    doctor?: XOR<DoctorScalarRelationFilter, DoctorWhereInput>
     schedule?: XOR<ScheduleScalarRelationFilter, ScheduleWhereInput>
   }
 
@@ -14155,8 +14155,8 @@ export namespace Prisma {
     doctorId?: SortOrder
     scheduleId?: SortOrder
     isBooked?: SortOrder
-    appointmentId?: SortOrder
-    docotor?: DoctorOrderByWithRelationInput
+    appointmentId?: SortOrderInput | SortOrder
+    doctor?: DoctorOrderByWithRelationInput
     schedule?: ScheduleOrderByWithRelationInput
   }
 
@@ -14168,8 +14168,8 @@ export namespace Prisma {
     doctorId?: StringFilter<"DoctorSchedule"> | string
     scheduleId?: StringFilter<"DoctorSchedule"> | string
     isBooked?: BoolFilter<"DoctorSchedule"> | boolean
-    appointmentId?: StringFilter<"DoctorSchedule"> | string
-    docotor?: XOR<DoctorScalarRelationFilter, DoctorWhereInput>
+    appointmentId?: StringNullableFilter<"DoctorSchedule"> | string | null
+    doctor?: XOR<DoctorScalarRelationFilter, DoctorWhereInput>
     schedule?: XOR<ScheduleScalarRelationFilter, ScheduleWhereInput>
   }, "doctorId_scheduleId">
 
@@ -14177,7 +14177,7 @@ export namespace Prisma {
     doctorId?: SortOrder
     scheduleId?: SortOrder
     isBooked?: SortOrder
-    appointmentId?: SortOrder
+    appointmentId?: SortOrderInput | SortOrder
     _count?: DoctorScheduleCountOrderByAggregateInput
     _max?: DoctorScheduleMaxOrderByAggregateInput
     _min?: DoctorScheduleMinOrderByAggregateInput
@@ -14190,7 +14190,7 @@ export namespace Prisma {
     doctorId?: StringWithAggregatesFilter<"DoctorSchedule"> | string
     scheduleId?: StringWithAggregatesFilter<"DoctorSchedule"> | string
     isBooked?: BoolWithAggregatesFilter<"DoctorSchedule"> | boolean
-    appointmentId?: StringWithAggregatesFilter<"DoctorSchedule"> | string
+    appointmentId?: StringNullableWithAggregatesFilter<"DoctorSchedule"> | string | null
   }
 
   export type UserCreateInput = {
@@ -14377,7 +14377,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutDoctorInput
     doctorSpecialties?: DoctorSpecialtiesCreateNestedManyWithoutDoctorInput
-    doctorSchedule?: DoctorScheduleCreateNestedManyWithoutDocotorInput
+    doctorSchedule?: DoctorScheduleCreateNestedManyWithoutDoctorInput
   }
 
   export type DoctorUncheckedCreateInput = {
@@ -14399,7 +14399,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     doctorSpecialties?: DoctorSpecialtiesUncheckedCreateNestedManyWithoutDoctorInput
-    doctorSchedule?: DoctorScheduleUncheckedCreateNestedManyWithoutDocotorInput
+    doctorSchedule?: DoctorScheduleUncheckedCreateNestedManyWithoutDoctorInput
   }
 
   export type DoctorUpdateInput = {
@@ -14421,7 +14421,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutDoctorNestedInput
     doctorSpecialties?: DoctorSpecialtiesUpdateManyWithoutDoctorNestedInput
-    doctorSchedule?: DoctorScheduleUpdateManyWithoutDocotorNestedInput
+    doctorSchedule?: DoctorScheduleUpdateManyWithoutDoctorNestedInput
   }
 
   export type DoctorUncheckedUpdateInput = {
@@ -14443,7 +14443,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     doctorSpecialties?: DoctorSpecialtiesUncheckedUpdateManyWithoutDoctorNestedInput
-    doctorSchedule?: DoctorScheduleUncheckedUpdateManyWithoutDocotorNestedInput
+    doctorSchedule?: DoctorScheduleUncheckedUpdateManyWithoutDoctorNestedInput
   }
 
   export type DoctorCreateManyInput = {
@@ -14959,23 +14959,23 @@ export namespace Prisma {
   }
 
   export type DoctorScheduleCreateInput = {
-    isBooked: boolean
-    appointmentId: string
-    docotor: DoctorCreateNestedOneWithoutDoctorScheduleInput
+    isBooked?: boolean
+    appointmentId?: string | null
+    doctor: DoctorCreateNestedOneWithoutDoctorScheduleInput
     schedule: ScheduleCreateNestedOneWithoutDoctorScheduleInput
   }
 
   export type DoctorScheduleUncheckedCreateInput = {
     doctorId: string
     scheduleId: string
-    isBooked: boolean
-    appointmentId: string
+    isBooked?: boolean
+    appointmentId?: string | null
   }
 
   export type DoctorScheduleUpdateInput = {
     isBooked?: BoolFieldUpdateOperationsInput | boolean
-    appointmentId?: StringFieldUpdateOperationsInput | string
-    docotor?: DoctorUpdateOneRequiredWithoutDoctorScheduleNestedInput
+    appointmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    doctor?: DoctorUpdateOneRequiredWithoutDoctorScheduleNestedInput
     schedule?: ScheduleUpdateOneRequiredWithoutDoctorScheduleNestedInput
   }
 
@@ -14983,26 +14983,26 @@ export namespace Prisma {
     doctorId?: StringFieldUpdateOperationsInput | string
     scheduleId?: StringFieldUpdateOperationsInput | string
     isBooked?: BoolFieldUpdateOperationsInput | boolean
-    appointmentId?: StringFieldUpdateOperationsInput | string
+    appointmentId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type DoctorScheduleCreateManyInput = {
     doctorId: string
     scheduleId: string
-    isBooked: boolean
-    appointmentId: string
+    isBooked?: boolean
+    appointmentId?: string | null
   }
 
   export type DoctorScheduleUpdateManyMutationInput = {
     isBooked?: BoolFieldUpdateOperationsInput | boolean
-    appointmentId?: StringFieldUpdateOperationsInput | string
+    appointmentId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type DoctorScheduleUncheckedUpdateManyInput = {
     doctorId?: StringFieldUpdateOperationsInput | string
     scheduleId?: StringFieldUpdateOperationsInput | string
     isBooked?: BoolFieldUpdateOperationsInput | boolean
-    appointmentId?: StringFieldUpdateOperationsInput | string
+    appointmentId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -15871,10 +15871,10 @@ export namespace Prisma {
     connect?: DoctorSpecialtiesWhereUniqueInput | DoctorSpecialtiesWhereUniqueInput[]
   }
 
-  export type DoctorScheduleCreateNestedManyWithoutDocotorInput = {
-    create?: XOR<DoctorScheduleCreateWithoutDocotorInput, DoctorScheduleUncheckedCreateWithoutDocotorInput> | DoctorScheduleCreateWithoutDocotorInput[] | DoctorScheduleUncheckedCreateWithoutDocotorInput[]
-    connectOrCreate?: DoctorScheduleCreateOrConnectWithoutDocotorInput | DoctorScheduleCreateOrConnectWithoutDocotorInput[]
-    createMany?: DoctorScheduleCreateManyDocotorInputEnvelope
+  export type DoctorScheduleCreateNestedManyWithoutDoctorInput = {
+    create?: XOR<DoctorScheduleCreateWithoutDoctorInput, DoctorScheduleUncheckedCreateWithoutDoctorInput> | DoctorScheduleCreateWithoutDoctorInput[] | DoctorScheduleUncheckedCreateWithoutDoctorInput[]
+    connectOrCreate?: DoctorScheduleCreateOrConnectWithoutDoctorInput | DoctorScheduleCreateOrConnectWithoutDoctorInput[]
+    createMany?: DoctorScheduleCreateManyDoctorInputEnvelope
     connect?: DoctorScheduleWhereUniqueInput | DoctorScheduleWhereUniqueInput[]
   }
 
@@ -15885,10 +15885,10 @@ export namespace Prisma {
     connect?: DoctorSpecialtiesWhereUniqueInput | DoctorSpecialtiesWhereUniqueInput[]
   }
 
-  export type DoctorScheduleUncheckedCreateNestedManyWithoutDocotorInput = {
-    create?: XOR<DoctorScheduleCreateWithoutDocotorInput, DoctorScheduleUncheckedCreateWithoutDocotorInput> | DoctorScheduleCreateWithoutDocotorInput[] | DoctorScheduleUncheckedCreateWithoutDocotorInput[]
-    connectOrCreate?: DoctorScheduleCreateOrConnectWithoutDocotorInput | DoctorScheduleCreateOrConnectWithoutDocotorInput[]
-    createMany?: DoctorScheduleCreateManyDocotorInputEnvelope
+  export type DoctorScheduleUncheckedCreateNestedManyWithoutDoctorInput = {
+    create?: XOR<DoctorScheduleCreateWithoutDoctorInput, DoctorScheduleUncheckedCreateWithoutDoctorInput> | DoctorScheduleCreateWithoutDoctorInput[] | DoctorScheduleUncheckedCreateWithoutDoctorInput[]
+    connectOrCreate?: DoctorScheduleCreateOrConnectWithoutDoctorInput | DoctorScheduleCreateOrConnectWithoutDoctorInput[]
+    createMany?: DoctorScheduleCreateManyDoctorInputEnvelope
     connect?: DoctorScheduleWhereUniqueInput | DoctorScheduleWhereUniqueInput[]
   }
 
@@ -15934,17 +15934,17 @@ export namespace Prisma {
     deleteMany?: DoctorSpecialtiesScalarWhereInput | DoctorSpecialtiesScalarWhereInput[]
   }
 
-  export type DoctorScheduleUpdateManyWithoutDocotorNestedInput = {
-    create?: XOR<DoctorScheduleCreateWithoutDocotorInput, DoctorScheduleUncheckedCreateWithoutDocotorInput> | DoctorScheduleCreateWithoutDocotorInput[] | DoctorScheduleUncheckedCreateWithoutDocotorInput[]
-    connectOrCreate?: DoctorScheduleCreateOrConnectWithoutDocotorInput | DoctorScheduleCreateOrConnectWithoutDocotorInput[]
-    upsert?: DoctorScheduleUpsertWithWhereUniqueWithoutDocotorInput | DoctorScheduleUpsertWithWhereUniqueWithoutDocotorInput[]
-    createMany?: DoctorScheduleCreateManyDocotorInputEnvelope
+  export type DoctorScheduleUpdateManyWithoutDoctorNestedInput = {
+    create?: XOR<DoctorScheduleCreateWithoutDoctorInput, DoctorScheduleUncheckedCreateWithoutDoctorInput> | DoctorScheduleCreateWithoutDoctorInput[] | DoctorScheduleUncheckedCreateWithoutDoctorInput[]
+    connectOrCreate?: DoctorScheduleCreateOrConnectWithoutDoctorInput | DoctorScheduleCreateOrConnectWithoutDoctorInput[]
+    upsert?: DoctorScheduleUpsertWithWhereUniqueWithoutDoctorInput | DoctorScheduleUpsertWithWhereUniqueWithoutDoctorInput[]
+    createMany?: DoctorScheduleCreateManyDoctorInputEnvelope
     set?: DoctorScheduleWhereUniqueInput | DoctorScheduleWhereUniqueInput[]
     disconnect?: DoctorScheduleWhereUniqueInput | DoctorScheduleWhereUniqueInput[]
     delete?: DoctorScheduleWhereUniqueInput | DoctorScheduleWhereUniqueInput[]
     connect?: DoctorScheduleWhereUniqueInput | DoctorScheduleWhereUniqueInput[]
-    update?: DoctorScheduleUpdateWithWhereUniqueWithoutDocotorInput | DoctorScheduleUpdateWithWhereUniqueWithoutDocotorInput[]
-    updateMany?: DoctorScheduleUpdateManyWithWhereWithoutDocotorInput | DoctorScheduleUpdateManyWithWhereWithoutDocotorInput[]
+    update?: DoctorScheduleUpdateWithWhereUniqueWithoutDoctorInput | DoctorScheduleUpdateWithWhereUniqueWithoutDoctorInput[]
+    updateMany?: DoctorScheduleUpdateManyWithWhereWithoutDoctorInput | DoctorScheduleUpdateManyWithWhereWithoutDoctorInput[]
     deleteMany?: DoctorScheduleScalarWhereInput | DoctorScheduleScalarWhereInput[]
   }
 
@@ -15962,17 +15962,17 @@ export namespace Prisma {
     deleteMany?: DoctorSpecialtiesScalarWhereInput | DoctorSpecialtiesScalarWhereInput[]
   }
 
-  export type DoctorScheduleUncheckedUpdateManyWithoutDocotorNestedInput = {
-    create?: XOR<DoctorScheduleCreateWithoutDocotorInput, DoctorScheduleUncheckedCreateWithoutDocotorInput> | DoctorScheduleCreateWithoutDocotorInput[] | DoctorScheduleUncheckedCreateWithoutDocotorInput[]
-    connectOrCreate?: DoctorScheduleCreateOrConnectWithoutDocotorInput | DoctorScheduleCreateOrConnectWithoutDocotorInput[]
-    upsert?: DoctorScheduleUpsertWithWhereUniqueWithoutDocotorInput | DoctorScheduleUpsertWithWhereUniqueWithoutDocotorInput[]
-    createMany?: DoctorScheduleCreateManyDocotorInputEnvelope
+  export type DoctorScheduleUncheckedUpdateManyWithoutDoctorNestedInput = {
+    create?: XOR<DoctorScheduleCreateWithoutDoctorInput, DoctorScheduleUncheckedCreateWithoutDoctorInput> | DoctorScheduleCreateWithoutDoctorInput[] | DoctorScheduleUncheckedCreateWithoutDoctorInput[]
+    connectOrCreate?: DoctorScheduleCreateOrConnectWithoutDoctorInput | DoctorScheduleCreateOrConnectWithoutDoctorInput[]
+    upsert?: DoctorScheduleUpsertWithWhereUniqueWithoutDoctorInput | DoctorScheduleUpsertWithWhereUniqueWithoutDoctorInput[]
+    createMany?: DoctorScheduleCreateManyDoctorInputEnvelope
     set?: DoctorScheduleWhereUniqueInput | DoctorScheduleWhereUniqueInput[]
     disconnect?: DoctorScheduleWhereUniqueInput | DoctorScheduleWhereUniqueInput[]
     delete?: DoctorScheduleWhereUniqueInput | DoctorScheduleWhereUniqueInput[]
     connect?: DoctorScheduleWhereUniqueInput | DoctorScheduleWhereUniqueInput[]
-    update?: DoctorScheduleUpdateWithWhereUniqueWithoutDocotorInput | DoctorScheduleUpdateWithWhereUniqueWithoutDocotorInput[]
-    updateMany?: DoctorScheduleUpdateManyWithWhereWithoutDocotorInput | DoctorScheduleUpdateManyWithWhereWithoutDocotorInput[]
+    update?: DoctorScheduleUpdateWithWhereUniqueWithoutDoctorInput | DoctorScheduleUpdateWithWhereUniqueWithoutDoctorInput[]
+    updateMany?: DoctorScheduleUpdateManyWithWhereWithoutDoctorInput | DoctorScheduleUpdateManyWithWhereWithoutDoctorInput[]
     deleteMany?: DoctorScheduleScalarWhereInput | DoctorScheduleScalarWhereInput[]
   }
 
@@ -16579,7 +16579,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     doctorSpecialties?: DoctorSpecialtiesCreateNestedManyWithoutDoctorInput
-    doctorSchedule?: DoctorScheduleCreateNestedManyWithoutDocotorInput
+    doctorSchedule?: DoctorScheduleCreateNestedManyWithoutDoctorInput
   }
 
   export type DoctorUncheckedCreateWithoutUserInput = {
@@ -16600,7 +16600,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     doctorSpecialties?: DoctorSpecialtiesUncheckedCreateNestedManyWithoutDoctorInput
-    doctorSchedule?: DoctorScheduleUncheckedCreateNestedManyWithoutDocotorInput
+    doctorSchedule?: DoctorScheduleUncheckedCreateNestedManyWithoutDoctorInput
   }
 
   export type DoctorCreateOrConnectWithoutUserInput = {
@@ -16699,7 +16699,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     doctorSpecialties?: DoctorSpecialtiesUpdateManyWithoutDoctorNestedInput
-    doctorSchedule?: DoctorScheduleUpdateManyWithoutDocotorNestedInput
+    doctorSchedule?: DoctorScheduleUpdateManyWithoutDoctorNestedInput
   }
 
   export type DoctorUncheckedUpdateWithoutUserInput = {
@@ -16720,7 +16720,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     doctorSpecialties?: DoctorSpecialtiesUncheckedUpdateManyWithoutDoctorNestedInput
-    doctorSchedule?: DoctorScheduleUncheckedUpdateManyWithoutDocotorNestedInput
+    doctorSchedule?: DoctorScheduleUncheckedUpdateManyWithoutDoctorNestedInput
   }
 
   export type PatientUpsertWithoutUserInput = {
@@ -16877,25 +16877,25 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type DoctorScheduleCreateWithoutDocotorInput = {
-    isBooked: boolean
-    appointmentId: string
+  export type DoctorScheduleCreateWithoutDoctorInput = {
+    isBooked?: boolean
+    appointmentId?: string | null
     schedule: ScheduleCreateNestedOneWithoutDoctorScheduleInput
   }
 
-  export type DoctorScheduleUncheckedCreateWithoutDocotorInput = {
+  export type DoctorScheduleUncheckedCreateWithoutDoctorInput = {
     scheduleId: string
-    isBooked: boolean
-    appointmentId: string
+    isBooked?: boolean
+    appointmentId?: string | null
   }
 
-  export type DoctorScheduleCreateOrConnectWithoutDocotorInput = {
+  export type DoctorScheduleCreateOrConnectWithoutDoctorInput = {
     where: DoctorScheduleWhereUniqueInput
-    create: XOR<DoctorScheduleCreateWithoutDocotorInput, DoctorScheduleUncheckedCreateWithoutDocotorInput>
+    create: XOR<DoctorScheduleCreateWithoutDoctorInput, DoctorScheduleUncheckedCreateWithoutDoctorInput>
   }
 
-  export type DoctorScheduleCreateManyDocotorInputEnvelope = {
-    data: DoctorScheduleCreateManyDocotorInput | DoctorScheduleCreateManyDocotorInput[]
+  export type DoctorScheduleCreateManyDoctorInputEnvelope = {
+    data: DoctorScheduleCreateManyDoctorInput | DoctorScheduleCreateManyDoctorInput[]
     skipDuplicates?: boolean
   }
 
@@ -16960,20 +16960,20 @@ export namespace Prisma {
     doctorId?: StringFilter<"DoctorSpecialties"> | string
   }
 
-  export type DoctorScheduleUpsertWithWhereUniqueWithoutDocotorInput = {
+  export type DoctorScheduleUpsertWithWhereUniqueWithoutDoctorInput = {
     where: DoctorScheduleWhereUniqueInput
-    update: XOR<DoctorScheduleUpdateWithoutDocotorInput, DoctorScheduleUncheckedUpdateWithoutDocotorInput>
-    create: XOR<DoctorScheduleCreateWithoutDocotorInput, DoctorScheduleUncheckedCreateWithoutDocotorInput>
+    update: XOR<DoctorScheduleUpdateWithoutDoctorInput, DoctorScheduleUncheckedUpdateWithoutDoctorInput>
+    create: XOR<DoctorScheduleCreateWithoutDoctorInput, DoctorScheduleUncheckedCreateWithoutDoctorInput>
   }
 
-  export type DoctorScheduleUpdateWithWhereUniqueWithoutDocotorInput = {
+  export type DoctorScheduleUpdateWithWhereUniqueWithoutDoctorInput = {
     where: DoctorScheduleWhereUniqueInput
-    data: XOR<DoctorScheduleUpdateWithoutDocotorInput, DoctorScheduleUncheckedUpdateWithoutDocotorInput>
+    data: XOR<DoctorScheduleUpdateWithoutDoctorInput, DoctorScheduleUncheckedUpdateWithoutDoctorInput>
   }
 
-  export type DoctorScheduleUpdateManyWithWhereWithoutDocotorInput = {
+  export type DoctorScheduleUpdateManyWithWhereWithoutDoctorInput = {
     where: DoctorScheduleScalarWhereInput
-    data: XOR<DoctorScheduleUpdateManyMutationInput, DoctorScheduleUncheckedUpdateManyWithoutDocotorInput>
+    data: XOR<DoctorScheduleUpdateManyMutationInput, DoctorScheduleUncheckedUpdateManyWithoutDoctorInput>
   }
 
   export type DoctorScheduleScalarWhereInput = {
@@ -16983,7 +16983,7 @@ export namespace Prisma {
     doctorId?: StringFilter<"DoctorSchedule"> | string
     scheduleId?: StringFilter<"DoctorSchedule"> | string
     isBooked?: BoolFilter<"DoctorSchedule"> | boolean
-    appointmentId?: StringFilter<"DoctorSchedule"> | string
+    appointmentId?: StringNullableFilter<"DoctorSchedule"> | string | null
   }
 
   export type UserCreateWithoutPatientInput = {
@@ -17349,7 +17349,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutDoctorInput
-    doctorSchedule?: DoctorScheduleCreateNestedManyWithoutDocotorInput
+    doctorSchedule?: DoctorScheduleCreateNestedManyWithoutDoctorInput
   }
 
   export type DoctorUncheckedCreateWithoutDoctorSpecialtiesInput = {
@@ -17370,7 +17370,7 @@ export namespace Prisma {
     averageRating?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    doctorSchedule?: DoctorScheduleUncheckedCreateNestedManyWithoutDocotorInput
+    doctorSchedule?: DoctorScheduleUncheckedCreateNestedManyWithoutDoctorInput
   }
 
   export type DoctorCreateOrConnectWithoutDoctorSpecialtiesInput = {
@@ -17430,7 +17430,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutDoctorNestedInput
-    doctorSchedule?: DoctorScheduleUpdateManyWithoutDocotorNestedInput
+    doctorSchedule?: DoctorScheduleUpdateManyWithoutDoctorNestedInput
   }
 
   export type DoctorUncheckedUpdateWithoutDoctorSpecialtiesInput = {
@@ -17451,7 +17451,7 @@ export namespace Prisma {
     averageRating?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    doctorSchedule?: DoctorScheduleUncheckedUpdateManyWithoutDocotorNestedInput
+    doctorSchedule?: DoctorScheduleUncheckedUpdateManyWithoutDoctorNestedInput
   }
 
   export type PatientCreateWithoutMedicalReportInput = {
@@ -17523,15 +17523,15 @@ export namespace Prisma {
   }
 
   export type DoctorScheduleCreateWithoutScheduleInput = {
-    isBooked: boolean
-    appointmentId: string
-    docotor: DoctorCreateNestedOneWithoutDoctorScheduleInput
+    isBooked?: boolean
+    appointmentId?: string | null
+    doctor: DoctorCreateNestedOneWithoutDoctorScheduleInput
   }
 
   export type DoctorScheduleUncheckedCreateWithoutScheduleInput = {
     doctorId: string
-    isBooked: boolean
-    appointmentId: string
+    isBooked?: boolean
+    appointmentId?: string | null
   }
 
   export type DoctorScheduleCreateOrConnectWithoutScheduleInput = {
@@ -17712,10 +17712,10 @@ export namespace Prisma {
     specialtiesId: string
   }
 
-  export type DoctorScheduleCreateManyDocotorInput = {
+  export type DoctorScheduleCreateManyDoctorInput = {
     scheduleId: string
-    isBooked: boolean
-    appointmentId: string
+    isBooked?: boolean
+    appointmentId?: string | null
   }
 
   export type DoctorSpecialtiesUpdateWithoutDoctorInput = {
@@ -17730,22 +17730,22 @@ export namespace Prisma {
     specialtiesId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type DoctorScheduleUpdateWithoutDocotorInput = {
+  export type DoctorScheduleUpdateWithoutDoctorInput = {
     isBooked?: BoolFieldUpdateOperationsInput | boolean
-    appointmentId?: StringFieldUpdateOperationsInput | string
+    appointmentId?: NullableStringFieldUpdateOperationsInput | string | null
     schedule?: ScheduleUpdateOneRequiredWithoutDoctorScheduleNestedInput
   }
 
-  export type DoctorScheduleUncheckedUpdateWithoutDocotorInput = {
+  export type DoctorScheduleUncheckedUpdateWithoutDoctorInput = {
     scheduleId?: StringFieldUpdateOperationsInput | string
     isBooked?: BoolFieldUpdateOperationsInput | boolean
-    appointmentId?: StringFieldUpdateOperationsInput | string
+    appointmentId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type DoctorScheduleUncheckedUpdateManyWithoutDocotorInput = {
+  export type DoctorScheduleUncheckedUpdateManyWithoutDoctorInput = {
     scheduleId?: StringFieldUpdateOperationsInput | string
     isBooked?: BoolFieldUpdateOperationsInput | boolean
-    appointmentId?: StringFieldUpdateOperationsInput | string
+    appointmentId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MedicalReportCreateManyPatientInput = {
@@ -17798,26 +17798,26 @@ export namespace Prisma {
 
   export type DoctorScheduleCreateManyScheduleInput = {
     doctorId: string
-    isBooked: boolean
-    appointmentId: string
+    isBooked?: boolean
+    appointmentId?: string | null
   }
 
   export type DoctorScheduleUpdateWithoutScheduleInput = {
     isBooked?: BoolFieldUpdateOperationsInput | boolean
-    appointmentId?: StringFieldUpdateOperationsInput | string
-    docotor?: DoctorUpdateOneRequiredWithoutDoctorScheduleNestedInput
+    appointmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    doctor?: DoctorUpdateOneRequiredWithoutDoctorScheduleNestedInput
   }
 
   export type DoctorScheduleUncheckedUpdateWithoutScheduleInput = {
     doctorId?: StringFieldUpdateOperationsInput | string
     isBooked?: BoolFieldUpdateOperationsInput | boolean
-    appointmentId?: StringFieldUpdateOperationsInput | string
+    appointmentId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type DoctorScheduleUncheckedUpdateManyWithoutScheduleInput = {
     doctorId?: StringFieldUpdateOperationsInput | string
     isBooked?: BoolFieldUpdateOperationsInput | boolean
-    appointmentId?: StringFieldUpdateOperationsInput | string
+    appointmentId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

@@ -40,7 +40,7 @@ router.patch(
 
 router.post(
   "/create-admin",
-  authValidation(UserRole.SUPER_ADMIN, UserRole.ADMIN),
+  // authValidation(UserRole.SUPER_ADMIN, UserRole.ADMIN),
   fileUploader.upload.single("file"),
   (req: Request, res: Response, next: NextFunction) => {
     req.body = userValidations.createAdmin.parse(JSON.parse(req.body.data));
