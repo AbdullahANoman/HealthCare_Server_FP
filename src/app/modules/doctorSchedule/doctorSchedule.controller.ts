@@ -38,8 +38,6 @@ const getMySchedule: RequestHandler = catchAsync(
   }
 );
 
-
-
 const deleteFromDB: RequestHandler = catchAsync(
   async (req: Request & { user?: IAuthUser }, res: Response) => {
     const user = req?.user;
@@ -57,8 +55,24 @@ const deleteFromDB: RequestHandler = catchAsync(
   }
 );
 
+const getAllFromDB: RequestHandler = catchAsync(
+  async (req: Request & {user?:IAuthUser}, res: Response) => {
+    const user = req?.user;
+    const query = pick(req.query, ["startDate","endDate"]);
+    const options = pick(req.query, ["page", "limit", "sortBy", "sortOrder"]);
+    const result = await doctorScheduleServices.getAllFromDB(query, options,user as IAuthUser);
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "All Doctor Schedule Fetched Successfully",
+      data: result,
+    });
+  }
+);
+
 export const doctorScheduleController = {
   createIntoDB,
   getMySchedule,
-  deleteFromDB
+  deleteFromDB,
+  getAllFromDB
 };
