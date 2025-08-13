@@ -55,11 +55,7 @@ const initPayment = async (paymentData: any) => {
 
 const validatePayment = async (payload: any) => {
   try {
-    if (!payload || !payload.status || !(payload.status === "VALID")) {
-      return {
-        message: "Invalid payment",
-      };
-    }
+
 
     const response = await axios({
       method: "GET",
