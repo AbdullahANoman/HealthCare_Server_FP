@@ -11,4 +11,9 @@ router.post(
   PrescriptionController.createIntoDB
 );
 
+router.get(
+  "/my-prescription",
+  authValidation(UserRole.DOCTOR, UserRole.PATIENT),
+  PrescriptionController.getMyPrescription)
+
 export const PrescriptionRoutes = router;
