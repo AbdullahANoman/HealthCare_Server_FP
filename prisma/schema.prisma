@@ -249,7 +249,6 @@ enum Gender {
 enum UserRole {
   SUPER_ADMIN
   ADMIN
-  DOCTOR
   PATIENT
 }
 
