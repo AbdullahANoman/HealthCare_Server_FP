@@ -12,6 +12,7 @@ const createIntoDB: RequestHandler = catchAsync(
       user as IAuthUser,
       req.body
     );
+
     sendResponse(res, {
       statusCode: 200,
       success: true,
@@ -29,7 +30,7 @@ const getAllReview: RequestHandler = catchAsync(
     sendResponse(res, {
       statusCode: 200,
       success: true,
-      message: "Review Create Successfully",
+      message: "All Review Retrieved Successfully",
       data: result,
     });
   }

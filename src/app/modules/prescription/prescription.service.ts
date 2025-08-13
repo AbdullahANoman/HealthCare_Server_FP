@@ -81,6 +81,7 @@ const getMyPrescription = async (user: IAuthUser, options: IPagination) => {
     data: result,
   };
 };
+
 export const prescriptionServices = {
   createIntoDB,
   getMyPrescription,

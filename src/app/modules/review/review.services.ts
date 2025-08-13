@@ -39,11 +39,26 @@ const createIntoDB = async (user: IAuthUser, payload: any) => {
     throw new ApiError(httpStatus.NOT_FOUND, "Review not found");
   }
 
-  const result = await prisma.review.create({
-    data: reviewData,
-  });
+  await prisma.$transaction(async (tx) => {
+    const result = await tx.review.create({
+      data: reviewData,
+    });
 
-  return result;
+    const averageRating = await tx.review.aggregate({
+      _avg: {
+        rating: true,
+      },
+    });
+    await tx.doctor.update({
+      where: {
+        id: appointmentData.doctorId,
+      },
+      data: {
+        averageRating: averageRating._avg.rating as number,
+      },
+    });
+    return result
+  });
 };
 
 const getAllReview = async (user: IAuthUser, options: IPagination) => {
@@ -88,6 +103,7 @@ const getAllReview = async (user: IAuthUser, options: IPagination) => {
     data: result,
   };
 };
+
 export const ReviewServices = {
   createIntoDB,
   getAllReview,
