@@ -15,8 +15,8 @@ const ApiError_1 = __importDefault(require("./app/errors/ApiError"));
 const http_status_2 = __importDefault(require("http-status"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({
-    origin: "http://localhost:3001", // no trailing slash!
-    credentials: true // if you send cookies or auth headers
+    origin: "http://localhost:3001",
+    credentials: true
 }));
 // parser
 app.use(express_1.default.json());

@@ -347,7 +347,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Volumes/NomanSSD/Project/Personal Project Backend/HealthCare_Server/src/generated/prisma",
+      "value": "/Volumes/NomanSSD/FinalProject/HealthCare_Server/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -361,7 +361,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Volumes/NomanSSD/Project/Personal Project Backend/HealthCare_Server/prisma/schema.prisma",
+    "sourceFilePath": "/Volumes/NomanSSD/FinalProject/HealthCare_Server/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -379,7 +379,7 @@ const config = {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://abdullahalnoman:123456@localhost:5432/health_care?schema=public"
+        "value": "postgresql://postgres.zjvwsofyvrnpxmgnwekf:noman4131@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres"
       }
     }
   },

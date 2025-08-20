@@ -11,8 +11,8 @@ import httpStatus from "http-status";
 const app: Application = express();
 
 app.use(cors({
-  origin: "http://localhost:3001", // no trailing slash!
-  credentials: true               // if you send cookies or auth headers
+  origin: "http://localhost:3001", 
+  credentials: true              
 }));
 
 // parser

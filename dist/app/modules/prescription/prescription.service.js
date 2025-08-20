@@ -22,7 +22,6 @@ const createIntoDB = (user, payload) => __awaiter(void 0, void 0, void 0, functi
     const appointmentData = yield prisma_2.prisma.appointment.findUniqueOrThrow({
         where: {
             id: payload.appointmentId,
-            status: prisma_1.AppointmentStatus.COMPLETED,
             paymentStatus: prisma_1.PaymentStatus.PAID,
         },
         include: {
