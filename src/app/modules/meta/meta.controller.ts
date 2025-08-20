@@ -18,6 +18,9 @@ const fetcheDashboardMetaData: RequestHandler = catchAsync(
 );
 
 
+
+
+
 export const MetaController = {
-  fetcheDashboardMetaData
+  fetcheDashboardMetaData,
 }
