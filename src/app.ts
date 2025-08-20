@@ -10,7 +10,10 @@ import ApiError from "./app/errors/ApiError";
 import httpStatus from "http-status";
 const app: Application = express();
 
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:3001", // no trailing slash!
+  credentials: true               // if you send cookies or auth headers
+}));
 
 // parser
 app.use(express.json());
