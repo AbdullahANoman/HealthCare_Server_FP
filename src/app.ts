@@ -8,17 +8,22 @@ import { AppointmentService } from "./app/modules/appointment/appointment.servic
 import cron from "node-cron";
 import ApiError from "./app/errors/ApiError";
 import httpStatus from "http-status";
+import notFound from "./app/middlewares/notFound";
 const app: Application = express();
+
+
+
+// parser
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.use(cors({
   origin: "http://localhost:3001", 
   credentials: true              
 }));
 
-// parser
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+
 
 // app.use("/api/v1/users", userRoutes);
 // app.use("/api/v1/admins", adminRoutes);
@@ -37,6 +42,11 @@ cron.schedule('* * * * *', () => {
 app.use("/api/v1", router);
 
 app.use(globalErrorHandler);
+
+
+//Not Found
+app.use(notFound)
+
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.status(status.NOT_FOUND).json({

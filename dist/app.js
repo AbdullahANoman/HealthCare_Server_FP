@@ -13,15 +13,16 @@ const appointment_service_1 = require("./app/modules/appointment/appointment.ser
 const node_cron_1 = __importDefault(require("node-cron"));
 const ApiError_1 = __importDefault(require("./app/errors/ApiError"));
 const http_status_2 = __importDefault(require("http-status"));
+const notFound_1 = __importDefault(require("./app/middlewares/notFound"));
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)({
-    origin: "http://localhost:3001",
-    credentials: true
-}));
 // parser
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cookie_parser_1.default)());
+app.use((0, cors_1.default)({
+    origin: "http://localhost:3001",
+    credentials: true
+}));
 // app.use("/api/v1/users", userRoutes);
 // app.use("/api/v1/admins", adminRoutes);
 node_cron_1.default.schedule('* * * * *', () => {
@@ -34,6 +35,8 @@ node_cron_1.default.schedule('* * * * *', () => {
 });
 app.use("/api/v1", routes_1.default);
 app.use(globalErrorHandler_1.globalErrorHandler);
+//Not Found
+app.use(notFound_1.default);
 app.use((req, res, next) => {
     res.status(http_status_1.default.NOT_FOUND).json({
         success: false,
