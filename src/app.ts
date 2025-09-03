@@ -37,7 +37,9 @@ cron.schedule('* * * * *', () => {
   }
 });
 
-
+app.get('/', (req: Request, res: Response) => {
+  res.send('HealthBridge backend is running 🚀');
+});
 
 app.use("/api/v1", router);
 

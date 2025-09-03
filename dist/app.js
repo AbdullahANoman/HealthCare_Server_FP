@@ -33,6 +33,9 @@ node_cron_1.default.schedule('* * * * *', () => {
         throw new ApiError_1.default(http_status_2.default.INTERNAL_SERVER_ERROR, 'Failed to cancel unpaid appointments');
     }
 });
+app.get('/', (req, res) => {
+    res.send('HealthBridge backend is running 🚀');
+});
 app.use("/api/v1", routes_1.default);
 app.use(globalErrorHandler_1.globalErrorHandler);
 //Not Found
