@@ -21,9 +21,9 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.doctorService = void 0;
-const prisma_1 = require("../../../generated/prisma");
+const client_1 = require("@prisma/client");
 const paginationHelper_1 = require("../../../helpers/paginationHelper");
-const prisma_2 = require("../../../shared/prisma");
+const prisma_1 = require("../../../shared/prisma");
 const doctor_constant_1 = require("./doctor.constant");
 const getAllFromDB = (query, options) => __awaiter(void 0, void 0, void 0, function* () {
     const { page, limit, skip, sortBy, sortOrder } = paginationHelper_1.paginationHelper.calculatePagination(options);
@@ -68,7 +68,7 @@ const getAllFromDB = (query, options) => __awaiter(void 0, void 0, void 0, funct
     const whereConditions = {
         AND: andConditions,
     };
-    const result = yield prisma_2.prisma.doctor.findMany({
+    const result = yield prisma_1.prisma.doctor.findMany({
         where: whereConditions,
         skip: skip,
         take: limit,
@@ -85,7 +85,7 @@ const getAllFromDB = (query, options) => __awaiter(void 0, void 0, void 0, funct
             }
             : { createdAt: "desc" },
     });
-    const total = yield prisma_2.prisma.doctor.count({
+    const total = yield prisma_1.prisma.doctor.count({
         where: whereConditions,
     });
     return {
@@ -98,12 +98,12 @@ const getAllFromDB = (query, options) => __awaiter(void 0, void 0, void 0, funct
     };
 });
 const getByIdFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    yield prisma_2.prisma.doctor.findUniqueOrThrow({
+    yield prisma_1.prisma.doctor.findUniqueOrThrow({
         where: {
             id,
         },
     });
-    const result = yield prisma_2.prisma.doctor.findUnique({
+    const result = yield prisma_1.prisma.doctor.findUnique({
         where: {
             id,
         },
@@ -111,12 +111,12 @@ const getByIdFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
     return result;
 });
 const deleteFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    yield prisma_2.prisma.doctor.findUniqueOrThrow({
+    yield prisma_1.prisma.doctor.findUniqueOrThrow({
         where: {
             id,
         },
     });
-    const result = yield prisma_2.prisma.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.prisma.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
         const doctorDeleteData = yield tx.doctor.delete({
             where: {
                 id,
@@ -132,13 +132,13 @@ const deleteFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
     return result;
 });
 const softDeleteFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    yield prisma_2.prisma.doctor.findUniqueOrThrow({
+    yield prisma_1.prisma.doctor.findUniqueOrThrow({
         where: {
             id,
             isDeleted: false,
         },
     });
-    const result = yield prisma_2.prisma.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.prisma.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
         const updateDoctor = yield tx.doctor.update({
             where: {
                 id,
@@ -152,7 +152,7 @@ const softDeleteFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () 
                 email: updateDoctor.email,
             },
             data: {
-                status: prisma_1.UserStatus.DELETED,
+                status: client_1.UserStatus.DELETED,
             },
         });
         return updateUser;
@@ -161,13 +161,13 @@ const softDeleteFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () 
 });
 const updateIntoDB = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
     const { specialties = [] } = payload, doctorInfo = __rest(payload, ["specialties"]);
-    yield prisma_2.prisma.doctor.findUniqueOrThrow({
+    yield prisma_1.prisma.doctor.findUniqueOrThrow({
         where: {
             id,
             isDeleted: false,
         },
     });
-    yield prisma_2.prisma.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
+    yield prisma_1.prisma.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
         yield tx.doctor.update({
             where: {
                 id,
@@ -196,7 +196,7 @@ const updateIntoDB = (id, payload) => __awaiter(void 0, void 0, void 0, function
             }
         }
     }));
-    const result = yield prisma_2.prisma.doctor.findUnique({
+    const result = yield prisma_1.prisma.doctor.findUnique({
         where: {
             id: id,
         },

@@ -1,8 +1,8 @@
 import { jwtHelpers } from "./../../../helpers/jwtHelpers";
 import { prisma } from "../../../shared/prisma";
 import * as bcrypt from "bcrypt";
-import jwt, { JwtPayload, Secret } from "jsonwebtoken";
-import { UserStatus } from "../../../generated/prisma";
+import jwt, {  Secret } from "jsonwebtoken";
+import { UserStatus } from "@prisma/client";;
 import config from "../../../config";
 import sendEmail from "./sendEmail";
 import ApiError from "../../errors/ApiError";

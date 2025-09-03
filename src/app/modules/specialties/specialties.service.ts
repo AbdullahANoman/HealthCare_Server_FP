@@ -1,7 +1,6 @@
 import { Request } from "express";
 import { fileUploader } from "../../../helpers/fileUploader";
 import { prisma } from "../../../shared/prisma";
-import { IAuthUser } from "../../interfaces/common";
 
 const insertIntoDB = async (req: Request) => {
   console.log(req.body);

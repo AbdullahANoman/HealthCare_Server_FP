@@ -21,9 +21,9 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.adminServices = void 0;
-const prisma_1 = require("../../../generated/prisma");
+const client_1 = require("@prisma/client");
 const paginationHelper_1 = require("../../../helpers/paginationHelper");
-const prisma_2 = require("../../../shared/prisma");
+const prisma_1 = require("../../../shared/prisma");
 const admin_constant_1 = require("./admin.constant");
 const getAllFromDB = (query, options) => __awaiter(void 0, void 0, void 0, function* () {
     const { page, limit, skip, sortBy, sortOrder } = paginationHelper_1.paginationHelper.calculatePagination(options);
@@ -54,7 +54,7 @@ const getAllFromDB = (query, options) => __awaiter(void 0, void 0, void 0, funct
     const whereConditions = {
         AND: andConditions,
     };
-    const result = yield prisma_2.prisma.admin.findMany({
+    const result = yield prisma_1.prisma.admin.findMany({
         where: whereConditions,
         skip: skip,
         take: limit,
@@ -64,7 +64,7 @@ const getAllFromDB = (query, options) => __awaiter(void 0, void 0, void 0, funct
             }
             : { createdAt: "desc" },
     });
-    const total = yield prisma_2.prisma.admin.count({
+    const total = yield prisma_1.prisma.admin.count({
         where: whereConditions,
     });
     return {
@@ -77,13 +77,13 @@ const getAllFromDB = (query, options) => __awaiter(void 0, void 0, void 0, funct
     };
 });
 const getByIdFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    yield prisma_2.prisma.admin.findUniqueOrThrow({
+    yield prisma_1.prisma.admin.findUniqueOrThrow({
         where: {
             id,
             // isDeleted: false,
         },
     });
-    const result = yield prisma_2.prisma.admin.findUnique({
+    const result = yield prisma_1.prisma.admin.findUnique({
         where: {
             id,
         },
@@ -91,13 +91,13 @@ const getByIdFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
     return result;
 });
 const updateIntoDB = (id, data) => __awaiter(void 0, void 0, void 0, function* () {
-    yield prisma_2.prisma.admin.findUniqueOrThrow({
+    yield prisma_1.prisma.admin.findUniqueOrThrow({
         where: {
             id,
             isDeleted: false,
         },
     });
-    const result = yield prisma_2.prisma.admin.update({
+    const result = yield prisma_1.prisma.admin.update({
         where: {
             id,
         },
@@ -106,12 +106,12 @@ const updateIntoDB = (id, data) => __awaiter(void 0, void 0, void 0, function* (
     return result;
 });
 const deleteFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    yield prisma_2.prisma.admin.findUniqueOrThrow({
+    yield prisma_1.prisma.admin.findUniqueOrThrow({
         where: {
             id,
         },
     });
-    const result = yield prisma_2.prisma.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.prisma.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
         const adminDeleteData = yield tx.admin.delete({
             where: {
                 id,
@@ -127,13 +127,13 @@ const deleteFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
     return result;
 });
 const softDeleteFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    yield prisma_2.prisma.admin.findUniqueOrThrow({
+    yield prisma_1.prisma.admin.findUniqueOrThrow({
         where: {
             id,
             isDeleted: false,
         },
     });
-    const result = yield prisma_2.prisma.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.prisma.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
         const updateAdmin = yield tx.admin.update({
             where: {
                 id,
@@ -147,7 +147,7 @@ const softDeleteFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () 
                 email: updateAdmin.email,
             },
             data: {
-                status: prisma_1.UserStatus.DELETED,
+                status: client_1.UserStatus.DELETED,
             },
         });
         return updateUser;

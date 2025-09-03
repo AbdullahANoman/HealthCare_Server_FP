@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.doctorValidation = exports.updateDoctor = void 0;
+const client_1 = require("@prisma/client");
 const zod_1 = require("zod");
-const prisma_1 = require("../../../generated/prisma");
 exports.updateDoctor = zod_1.z.object({
     name: zod_1.z.string().optional(),
     email: zod_1.z.string().optional(),
@@ -10,7 +10,7 @@ exports.updateDoctor = zod_1.z.object({
     address: zod_1.z.string().optional(),
     registrationNumber: zod_1.z.string().optional(),
     experience: zod_1.z.number().optional(),
-    gender: zod_1.z.enum([prisma_1.Gender.FEMALE, prisma_1.Gender.MALE]).optional(),
+    gender: zod_1.z.enum([client_1.Gender.FEMALE, client_1.Gender.MALE]).optional(),
     appointmentFee: zod_1.z.number().optional(),
     qualification: zod_1.z.string().optional(),
     currentWorkingPlace: zod_1.z.string().optional(),

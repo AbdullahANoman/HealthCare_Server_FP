@@ -1,6 +1,6 @@
 import { prisma } from "../../../shared/prisma";
 import { SSlService } from "../SSL/SSL.service";
-import { PaymentStatus } from "../../../generated/prisma";
+import { PaymentStatus } from "@prisma/client";
 
 const initPayment = async (appointmentId: string) => {
   const paymentData = await prisma.payment.findFirstOrThrow({

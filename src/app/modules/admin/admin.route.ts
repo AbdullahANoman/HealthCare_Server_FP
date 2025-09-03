@@ -3,7 +3,7 @@ import express from "express";
 import { adminControllers } from "./admin.controller";
 import { validateRequest } from "../../middlewares/validateRequest";
 import { adminValidationSchemas } from "./admin.validations";
-import { UserRole } from "../../../generated/prisma";
+import { UserRole } from "@prisma/client";
 
 const router = express.Router();
 

@@ -28,7 +28,8 @@ const ApiError_1 = __importDefault(require("../../errors/ApiError"));
 const http_status_1 = __importDefault(require("http-status"));
 const prisma_1 = require("../../../shared/prisma");
 const paginationHelper_1 = require("../../../helpers/paginationHelper");
-const prisma_2 = require("../../../generated/prisma");
+const client_1 = require("@prisma/client");
+;
 const createAppointment = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
     const patientData = yield prisma_1.prisma.patient.findUniqueOrThrow({
         where: {
@@ -165,14 +166,14 @@ const getMyAppointment = (user, filters, options) => __awaiter(void 0, void 0, v
     const { limit, page, skip } = paginationHelper_1.paginationHelper.calculatePagination(options);
     const filterData = __rest(filters, []);
     const andConditions = [];
-    if ((user === null || user === void 0 ? void 0 : user.role) === prisma_2.UserRole.PATIENT) {
+    if ((user === null || user === void 0 ? void 0 : user.role) === client_1.UserRole.PATIENT) {
         andConditions.push({
             patient: {
                 email: user === null || user === void 0 ? void 0 : user.email,
             },
         });
     }
-    else if ((user === null || user === void 0 ? void 0 : user.role) === prisma_2.UserRole.DOCTOR) {
+    else if ((user === null || user === void 0 ? void 0 : user.role) === client_1.UserRole.DOCTOR) {
         andConditions.push({
             doctor: {
                 email: user === null || user === void 0 ? void 0 : user.email,
@@ -195,7 +196,7 @@ const getMyAppointment = (user, filters, options) => __awaiter(void 0, void 0, v
         // orderBy: options.sortBy && options.sortOrder
         //     ? { [options.sortBy]: options.sortOrder }
         //     : { createdAt: 'desc' },
-        include: (user === null || user === void 0 ? void 0 : user.role) === prisma_2.UserRole.PATIENT
+        include: (user === null || user === void 0 ? void 0 : user.role) === client_1.UserRole.PATIENT
             ? { doctor: true, schedule: true }
             : {
                 patient: {
@@ -225,7 +226,7 @@ const changeAppointmentStatus = (appointmentId, status, user) => __awaiter(void 
             doctor: true,
         },
     });
-    if ((user === null || user === void 0 ? void 0 : user.role) === prisma_2.UserRole.DOCTOR) {
+    if ((user === null || user === void 0 ? void 0 : user.role) === client_1.UserRole.DOCTOR) {
         if (!(user.email === appointmentData.doctor.email)) {
             throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, "This is not your appointment!");
         }
@@ -247,7 +248,7 @@ const cancelUnpaidAppointments = () => __awaiter(void 0, void 0, void 0, functio
             createdAt: {
                 lte: thirtyMinAgo,
             },
-            paymentStatus: prisma_2.PaymentStatus.UNPAID,
+            paymentStatus: client_1.PaymentStatus.UNPAID,
         },
     });
     const unPaidAppointmentIds = unPaidAppointment.map((appointment) => appointment.id);

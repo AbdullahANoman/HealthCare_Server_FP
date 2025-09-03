@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.paymentServices = void 0;
 const prisma_1 = require("../../../shared/prisma");
 const SSL_service_1 = require("../SSL/SSL.service");
-const prisma_2 = require("../../../generated/prisma");
+const client_1 = require("@prisma/client");
 const initPayment = (appointmentId) => __awaiter(void 0, void 0, void 0, function* () {
     const paymentData = yield prisma_1.prisma.payment.findFirstOrThrow({
         where: {
@@ -60,7 +60,7 @@ const validatePayment = (payload) => __awaiter(void 0, void 0, void 0, function*
                 transactionId: response.tran_id,
             },
             data: {
-                status: prisma_2.PaymentStatus.PAID,
+                status: client_1.PaymentStatus.PAID,
                 paymentGetWayData: response,
             },
         });
@@ -69,7 +69,7 @@ const validatePayment = (payload) => __awaiter(void 0, void 0, void 0, function*
                 id: paymentData.appointmentId,
             },
             data: {
-                paymentStatus: prisma_2.PaymentStatus.PAID,
+                paymentStatus: client_1.PaymentStatus.PAID,
             },
         });
     }));

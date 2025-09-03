@@ -1,6 +1,4 @@
-import { User, UserRole, Patient } from "./../../../generated/prisma/index.d";
 import httpStatus from "http-status";
-import { AppointmentStatus, PaymentStatus } from "../../../generated/prisma";
 import { prisma } from "../../../shared/prisma";
 import ApiError from "../../errors/ApiError";
 import { IAuthUser } from "../../interfaces/common";

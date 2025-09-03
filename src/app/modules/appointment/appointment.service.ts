@@ -10,7 +10,7 @@ import {
   PaymentStatus,
   Prisma,
   UserRole,
-} from "../../../generated/prisma";
+} from "@prisma/client";;
 
 const createAppointment = async (user: IAuthUser, payload: any) => {
   const patientData = await prisma.patient.findUniqueOrThrow({
@@ -284,12 +284,12 @@ const cancelUnpaidAppointments = async () => {
   });
 
   const unPaidAppointmentIds = unPaidAppointment.map(
-    (appointment:any) => appointment.id
+    (appointment) => appointment.id
   );
 
 
 
-  await prisma.$transaction(async (tx:any) => {
+  await prisma.$transaction(async (tx) => {
    await tx.payment.deleteMany({
       where: {
         appointmentId: {

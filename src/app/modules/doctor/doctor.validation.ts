@@ -1,5 +1,5 @@
+import { Gender } from "@prisma/client";
 import { z } from "zod";
-import { Gender } from "../../../generated/prisma";
 
 export const updateDoctor = z.object({
   name: z.string().optional(),

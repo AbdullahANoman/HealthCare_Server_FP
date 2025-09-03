@@ -58,8 +58,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userServices = void 0;
 const bcrypt = __importStar(require("bcrypt"));
-const prisma_1 = require("../../../generated/prisma");
-const prisma_2 = require("../../../shared/prisma");
+const client_1 = require("@prisma/client");
+const prisma_1 = require("../../../shared/prisma");
 const fileUploader_1 = require("../../../helpers/fileUploader");
 const paginationHelper_1 = require("../../../helpers/paginationHelper");
 const user_constant_1 = require("./user.constant");
@@ -76,10 +76,10 @@ const createAdmin = (req) => __awaiter(void 0, void 0, void 0, function* () {
     const userData = {
         email: req.body.admin.email,
         password: hashedPassword,
-        role: prisma_1.UserRole.ADMIN,
+        role: client_1.UserRole.ADMIN,
     };
     const adminData = req.body.admin;
-    const result = yield prisma_2.prisma.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.prisma.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
         yield tx.user.create({
             data: userData,
         });
@@ -105,10 +105,10 @@ const createDoctor = (req) => __awaiter(void 0, void 0, void 0, function* () {
     const userData = {
         email: req.body.doctor.email,
         password: hashedPassword,
-        role: prisma_1.UserRole.DOCTOR,
+        role: client_1.UserRole.DOCTOR,
     };
     const doctorData = req.body.doctor;
-    const result = yield prisma_2.prisma.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.prisma.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
         yield tx.user.create({
             data: userData,
         });
@@ -134,10 +134,10 @@ const createPatient = (req) => __awaiter(void 0, void 0, void 0, function* () {
     const userData = {
         email: req.body.patient.email,
         password: hashedPassword,
-        role: prisma_1.UserRole.PATIENT,
+        role: client_1.UserRole.PATIENT,
     };
     const patientData = req.body.patient;
-    const result = yield prisma_2.prisma.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.prisma.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
         yield tx.user.create({
             data: userData,
         });
@@ -179,7 +179,7 @@ const getAllFromDB = (query, options) => __awaiter(void 0, void 0, void 0, funct
     const whereConditions = {
         AND: andConditions,
     };
-    const result = yield prisma_2.prisma.user.findMany({
+    const result = yield prisma_1.prisma.user.findMany({
         where: whereConditions,
         skip: skip,
         take: limit,
@@ -202,7 +202,7 @@ const getAllFromDB = (query, options) => __awaiter(void 0, void 0, void 0, funct
             patient: true,
         },
     });
-    const total = yield prisma_2.prisma.user.count({
+    const total = yield prisma_1.prisma.user.count({
         where: whereConditions,
     });
     return {
@@ -215,7 +215,7 @@ const getAllFromDB = (query, options) => __awaiter(void 0, void 0, void 0, funct
     };
 });
 const changeStatus = (id, req) => __awaiter(void 0, void 0, void 0, function* () {
-    const isUserExist = yield prisma_2.prisma.user.findUniqueOrThrow({
+    const isUserExist = yield prisma_1.prisma.user.findUniqueOrThrow({
         where: {
             id,
         },
@@ -223,7 +223,7 @@ const changeStatus = (id, req) => __awaiter(void 0, void 0, void 0, function* ()
     if (!isUserExist) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, "User not found");
     }
-    const updateStatusResult = yield prisma_2.prisma.user.update({
+    const updateStatusResult = yield prisma_1.prisma.user.update({
         where: {
             email: isUserExist.email,
         },
@@ -234,7 +234,7 @@ const changeStatus = (id, req) => __awaiter(void 0, void 0, void 0, function* ()
     return updateStatusResult;
 });
 const getMe = (user) => __awaiter(void 0, void 0, void 0, function* () {
-    const userInfo = yield prisma_2.prisma.user.findUniqueOrThrow({
+    const userInfo = yield prisma_1.prisma.user.findUniqueOrThrow({
         where: {
             email: user.email,
         },
@@ -250,21 +250,21 @@ const getMe = (user) => __awaiter(void 0, void 0, void 0, function* () {
     });
     let profileInfo;
     if (userInfo.role == "SUPER_ADMIN" || userInfo.role == "ADMIN") {
-        profileInfo = yield prisma_2.prisma.admin.findUniqueOrThrow({
+        profileInfo = yield prisma_1.prisma.admin.findUniqueOrThrow({
             where: {
                 email: userInfo.email,
             },
         });
     }
     else if (userInfo.role == "DOCTOR") {
-        profileInfo = yield prisma_2.prisma.doctor.findUniqueOrThrow({
+        profileInfo = yield prisma_1.prisma.doctor.findUniqueOrThrow({
             where: {
                 email: userInfo.email,
             },
         });
     }
     else if (userInfo.role == "PATIENT") {
-        profileInfo = yield prisma_2.prisma.patient.findUniqueOrThrow({
+        profileInfo = yield prisma_1.prisma.patient.findUniqueOrThrow({
             where: {
                 email: userInfo.email,
             },
@@ -274,10 +274,10 @@ const getMe = (user) => __awaiter(void 0, void 0, void 0, function* () {
 });
 const updateMyProfile = (user, req) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(user);
-    const userInfo = yield prisma_2.prisma.user.findUniqueOrThrow({
+    const userInfo = yield prisma_1.prisma.user.findUniqueOrThrow({
         where: {
             email: user.email,
-            status: prisma_1.UserStatus.ACTIVE,
+            status: client_1.UserStatus.ACTIVE,
         },
     });
     const file = req.file;
@@ -287,7 +287,7 @@ const updateMyProfile = (user, req) => __awaiter(void 0, void 0, void 0, functio
     }
     let profileInfo;
     if (userInfo.role == "SUPER_ADMIN" || userInfo.role == "ADMIN") {
-        profileInfo = yield prisma_2.prisma.admin.update({
+        profileInfo = yield prisma_1.prisma.admin.update({
             where: {
                 email: userInfo.email,
             },
@@ -295,7 +295,7 @@ const updateMyProfile = (user, req) => __awaiter(void 0, void 0, void 0, functio
         });
     }
     else if (userInfo.role == "DOCTOR") {
-        profileInfo = yield prisma_2.prisma.doctor.update({
+        profileInfo = yield prisma_1.prisma.doctor.update({
             where: {
                 email: userInfo.email,
             },
@@ -303,7 +303,7 @@ const updateMyProfile = (user, req) => __awaiter(void 0, void 0, void 0, functio
         });
     }
     else if (userInfo.role == "PATIENT") {
-        profileInfo = yield prisma_2.prisma.patient.update({
+        profileInfo = yield prisma_1.prisma.patient.update({
             where: {
                 email: userInfo.email,
             },

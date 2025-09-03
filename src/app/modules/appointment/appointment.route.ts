@@ -1,7 +1,7 @@
 import express from 'express'
 import { AppointmentController } from './appointment.controller';
 import { authValidation } from '../../middlewares/authValidation';
-import { UserRole } from '../../../generated/prisma';
+import { UserRole } from "@prisma/client";
 import { validateRequest } from '../../middlewares/validateRequest';
 import { AppointmentValidation } from './appointment.validation';
 

@@ -1,9 +1,8 @@
-import { status } from "http-status";
+import { UserRole } from "@prisma/client";
 import express, { NextFunction, Request, Response } from "express";
-import { userController } from "./user.controller";
-import { UserRole, UserStatus } from "../../../generated/prisma";
-import { authValidation } from "../../middlewares/authValidation";
 import { fileUploader } from "../../../helpers/fileUploader";
+import { authValidation } from "../../middlewares/authValidation";
+import { userController } from "./user.controller";
 import { userValidations } from "./user.validation";
 
 const router = express.Router();

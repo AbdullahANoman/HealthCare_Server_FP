@@ -1,6 +1,6 @@
 import { addHours, addMinutes, format } from "date-fns";
 import { prisma } from "../../../shared/prisma";
-import { Prisma, Schedule } from "../../../generated/prisma";
+import { Prisma, Schedule } from "@prisma/client";
 import { IFilterRequest, ISchedule } from "./schedule.interface";
 import { paginationHelper } from "../../../helpers/paginationHelper";
 import { IAuthUser } from "../../interfaces/common";

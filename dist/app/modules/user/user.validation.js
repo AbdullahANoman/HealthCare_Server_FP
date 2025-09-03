@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userValidations = void 0;
+const client_1 = require("@prisma/client");
 const zod_1 = require("zod");
-const prisma_1 = require("../../../generated/prisma");
 const createAdmin = zod_1.z.object({
     password: zod_1.z.string({
         required_error: "Password is required",
@@ -26,7 +26,7 @@ const createDoctor = zod_1.z.object({
             required_error: "Registration Number is required",
         }),
         experience: zod_1.z.number().default(0),
-        gender: zod_1.z.enum([prisma_1.Gender.FEMALE, prisma_1.Gender.MALE], {
+        gender: zod_1.z.enum([client_1.Gender.FEMALE, client_1.Gender.MALE], {
             required_error: "Gender is required",
         }),
         appointmentFee: zod_1.z.number({ required_error: "Appointment Fee is required" }),
@@ -52,7 +52,7 @@ const createPatient = zod_1.z.object({
     }),
 });
 const changeStatus = zod_1.z.object({
-    status: zod_1.z.enum([prisma_1.UserStatus.ACTIVE, prisma_1.UserStatus.BLOCKED, prisma_1.UserStatus.DELETED]),
+    status: zod_1.z.enum([client_1.UserStatus.ACTIVE, client_1.UserStatus.BLOCKED, client_1.UserStatus.DELETED]),
 });
 exports.userValidations = {
     createAdmin,

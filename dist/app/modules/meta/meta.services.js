@@ -10,21 +10,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MetaServices = void 0;
-const prisma_1 = require("../../../generated/prisma");
-const prisma_2 = require("../../../shared/prisma");
+const client_1 = require("@prisma/client");
+const prisma_1 = require("../../../shared/prisma");
 const fetcheDashboardMetaData = (user) => __awaiter(void 0, void 0, void 0, function* () {
     let result;
     switch (user.role) {
-        case prisma_1.UserRole.SUPER_ADMIN:
+        case client_1.UserRole.SUPER_ADMIN:
             result = yield getSuperAdminMetaData();
             break;
-        case prisma_1.UserRole.ADMIN:
+        case client_1.UserRole.ADMIN:
             result = yield getAdminMetaData();
             break;
-        case prisma_1.UserRole.DOCTOR:
+        case client_1.UserRole.DOCTOR:
             result = yield getDoctorMetaData(user);
             break;
-        case prisma_1.UserRole.PATIENT:
+        case client_1.UserRole.PATIENT:
             result = yield getPatientMetaData(user);
             break;
         default:
@@ -33,17 +33,17 @@ const fetcheDashboardMetaData = (user) => __awaiter(void 0, void 0, void 0, func
     return result;
 });
 const getSuperAdminMetaData = () => __awaiter(void 0, void 0, void 0, function* () {
-    const appointmentCount = yield prisma_2.prisma.appointment.count();
-    const patientCoount = yield prisma_2.prisma.patient.count();
-    const doctorCount = yield prisma_2.prisma.doctor.count();
-    const paymentCount = yield prisma_2.prisma.payment.count();
-    const adminCount = yield prisma_2.prisma.admin.count();
-    const totalRevenue = yield prisma_2.prisma.payment.aggregate({
+    const appointmentCount = yield prisma_1.prisma.appointment.count();
+    const patientCoount = yield prisma_1.prisma.patient.count();
+    const doctorCount = yield prisma_1.prisma.doctor.count();
+    const paymentCount = yield prisma_1.prisma.payment.count();
+    const adminCount = yield prisma_1.prisma.admin.count();
+    const totalRevenue = yield prisma_1.prisma.payment.aggregate({
         _sum: {
             amount: true,
         },
         where: {
-            status: prisma_1.PaymentStatus.PAID,
+            status: client_1.PaymentStatus.PAID,
         },
     });
     // const barChartData = await getBarChartData();
@@ -62,16 +62,16 @@ const getSuperAdminMetaData = () => __awaiter(void 0, void 0, void 0, function* 
 const getAdminMetaData = () => __awaiter(void 0, void 0, void 0, function* () {
     // const barChartData = await getBarChartData();
     // const pieChartData = await getPieChartData();
-    const appointmentCount = yield prisma_2.prisma.appointment.count();
-    const patientCoount = yield prisma_2.prisma.patient.count();
-    const doctorCount = yield prisma_2.prisma.doctor.count();
-    const paymentCount = yield prisma_2.prisma.payment.count();
-    const totalRevenue = yield prisma_2.prisma.payment.aggregate({
+    const appointmentCount = yield prisma_1.prisma.appointment.count();
+    const patientCoount = yield prisma_1.prisma.patient.count();
+    const doctorCount = yield prisma_1.prisma.doctor.count();
+    const paymentCount = yield prisma_1.prisma.payment.count();
+    const totalRevenue = yield prisma_1.prisma.payment.aggregate({
         _sum: {
             amount: true,
         },
         where: {
-            status: prisma_1.PaymentStatus.PAID,
+            status: client_1.PaymentStatus.PAID,
         },
     });
     return {
@@ -85,25 +85,25 @@ const getAdminMetaData = () => __awaiter(void 0, void 0, void 0, function* () {
     };
 });
 const getDoctorMetaData = (user) => __awaiter(void 0, void 0, void 0, function* () {
-    const doctorData = yield prisma_2.prisma.doctor.findUniqueOrThrow({
+    const doctorData = yield prisma_1.prisma.doctor.findUniqueOrThrow({
         where: {
             email: user.email,
         },
     });
-    const appointmentCount = yield prisma_2.prisma.appointment.count({
+    const appointmentCount = yield prisma_1.prisma.appointment.count({
         where: {
             doctorId: doctorData.id,
         },
     });
-    const patientCount = yield prisma_2.prisma.appointment.groupBy({
+    const patientCount = yield prisma_1.prisma.appointment.groupBy({
         by: ["patientId"],
     });
-    const reviewCount = yield prisma_2.prisma.review.count({
+    const reviewCount = yield prisma_1.prisma.review.count({
         where: {
             doctorId: doctorData.id,
         },
     });
-    const totalRevenue = yield prisma_2.prisma.payment.aggregate({
+    const totalRevenue = yield prisma_1.prisma.payment.aggregate({
         _sum: {
             amount: true,
         },
@@ -111,10 +111,10 @@ const getDoctorMetaData = (user) => __awaiter(void 0, void 0, void 0, function* 
             appointment: {
                 doctorId: doctorData.id,
             },
-            status: prisma_1.PaymentStatus.PAID,
+            status: client_1.PaymentStatus.PAID,
         },
     });
-    const appointmentStatusDistribution = yield prisma_2.prisma.appointment.groupBy({
+    const appointmentStatusDistribution = yield prisma_1.prisma.appointment.groupBy({
         by: ["status"],
         _count: { id: true },
         where: {
@@ -134,22 +134,22 @@ const getDoctorMetaData = (user) => __awaiter(void 0, void 0, void 0, function* 
     };
 });
 const getPatientMetaData = (user) => __awaiter(void 0, void 0, void 0, function* () {
-    const patientData = yield prisma_2.prisma.patient.findUniqueOrThrow({
+    const patientData = yield prisma_1.prisma.patient.findUniqueOrThrow({
         where: {
             email: user.email,
         },
     });
-    const appointmentCount = yield prisma_2.prisma.appointment.count({
+    const appointmentCount = yield prisma_1.prisma.appointment.count({
         where: {
             patientId: patientData.id,
         },
     });
-    const reviewCount = yield prisma_2.prisma.review.count({
+    const reviewCount = yield prisma_1.prisma.review.count({
         where: {
             patientId: patientData.id,
         },
     });
-    const appointmentStatusDistribution = yield prisma_2.prisma.appointment.groupBy({
+    const appointmentStatusDistribution = yield prisma_1.prisma.appointment.groupBy({
         by: ["status"],
         _count: { id: true },
         where: {

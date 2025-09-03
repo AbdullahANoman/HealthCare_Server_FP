@@ -6,7 +6,7 @@ import {
   PatientHealthData,
   Prisma,
   UserStatus,
-} from "../../../generated/prisma";
+} from "@prisma/client";
 import { paginationHelper } from "../../../helpers/paginationHelper";
 import { prisma } from "../../../shared/prisma";
 import { IPagination } from "../../interfaces/paginationInterface";

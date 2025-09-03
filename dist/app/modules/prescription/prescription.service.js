@@ -14,15 +14,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.prescriptionServices = void 0;
 const http_status_1 = __importDefault(require("http-status"));
-const prisma_1 = require("../../../generated/prisma");
-const prisma_2 = require("../../../shared/prisma");
+const client_1 = require("@prisma/client");
+const prisma_1 = require("../../../shared/prisma");
 const ApiError_1 = __importDefault(require("../../errors/ApiError"));
 const paginationHelper_1 = require("../../../helpers/paginationHelper");
 const createIntoDB = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const appointmentData = yield prisma_2.prisma.appointment.findUniqueOrThrow({
+    const appointmentData = yield prisma_1.prisma.appointment.findUniqueOrThrow({
         where: {
             id: payload.appointmentId,
-            paymentStatus: prisma_1.PaymentStatus.PAID,
+            paymentStatus: client_1.PaymentStatus.PAID,
         },
         include: {
             doctor: true,
@@ -33,7 +33,7 @@ const createIntoDB = (user, payload) => __awaiter(void 0, void 0, void 0, functi
     }
     const prescriptionData = Object.assign({ appointmentId: appointmentData.id, patientId: appointmentData.patientId, doctorId: appointmentData.doctorId }, payload);
     if (prescriptionData) {
-        const result = yield prisma_2.prisma.prescription.create({
+        const result = yield prisma_1.prisma.prescription.create({
             data: prescriptionData,
             include: {
                 doctor: true,
@@ -46,7 +46,7 @@ const createIntoDB = (user, payload) => __awaiter(void 0, void 0, void 0, functi
 });
 const getMyPrescription = (user, options) => __awaiter(void 0, void 0, void 0, function* () {
     const { page, limit, skip, sortBy, sortOrder } = paginationHelper_1.paginationHelper.calculatePagination(options);
-    const result = yield prisma_2.prisma.prescription.findMany({
+    const result = yield prisma_1.prisma.prescription.findMany({
         where: {
             patient: {
                 email: user.email,
@@ -65,7 +65,7 @@ const getMyPrescription = (user, options) => __awaiter(void 0, void 0, void 0, f
             }
             : { createdAt: "desc" },
     });
-    const total = yield prisma_2.prisma.prescription.count({});
+    const total = yield prisma_1.prisma.prescription.count({});
     return {
         meta: {
             page,

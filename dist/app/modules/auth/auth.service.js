@@ -50,7 +50,8 @@ const jwtHelpers_1 = require("./../../../helpers/jwtHelpers");
 const prisma_1 = require("../../../shared/prisma");
 const bcrypt = __importStar(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const prisma_2 = require("../../../generated/prisma");
+const client_1 = require("@prisma/client");
+;
 const config_1 = __importDefault(require("../../../config"));
 const sendEmail_1 = __importDefault(require("./sendEmail"));
 const ApiError_1 = __importDefault(require("../../errors/ApiError"));
@@ -59,7 +60,7 @@ const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const userData = yield prisma_1.prisma.user.findUniqueOrThrow({
         where: {
             email: payload.email,
-            status: prisma_2.UserStatus.ACTIVE,
+            status: client_1.UserStatus.ACTIVE,
         },
     });
     const isPasswordMatch = yield bcrypt.compare(payload.password, userData.password);
@@ -94,7 +95,7 @@ const refreshToken = (token) => __awaiter(void 0, void 0, void 0, function* () {
     const isUserExist = yield prisma_1.prisma.user.findUniqueOrThrow({
         where: {
             email: decodedData.email,
-            status: prisma_2.UserStatus.ACTIVE,
+            status: client_1.UserStatus.ACTIVE,
         },
     });
     const accessToken = jsonwebtoken_1.default.sign({ email: isUserExist.email, role: isUserExist.role }, config_1.default.jwt.jwt_secret, {
@@ -110,7 +111,7 @@ const changePassword = (userData, postData) => __awaiter(void 0, void 0, void 0,
     const isUser = yield prisma_1.prisma.user.findUniqueOrThrow({
         where: {
             email: userData.email,
-            status: prisma_2.UserStatus.ACTIVE,
+            status: client_1.UserStatus.ACTIVE,
         },
     });
     const isPasswordMatch = yield bcrypt.compare(postData.oldPassword, isUser.password);
@@ -135,7 +136,7 @@ const forgotPassword = (payload) => __awaiter(void 0, void 0, void 0, function* 
     const userData = yield prisma_1.prisma.user.findUniqueOrThrow({
         where: {
             email: payload.email,
-            status: prisma_2.UserStatus.ACTIVE,
+            status: client_1.UserStatus.ACTIVE,
         },
     });
     if (!userData) {
@@ -155,7 +156,7 @@ const resetPassword = (token, payload) => __awaiter(void 0, void 0, void 0, func
     const userData = yield prisma_1.prisma.user.findUniqueOrThrow({
         where: {
             email: payload.email,
-            status: prisma_2.UserStatus.ACTIVE,
+            status: client_1.UserStatus.ACTIVE,
         },
     });
     if (!userData) {

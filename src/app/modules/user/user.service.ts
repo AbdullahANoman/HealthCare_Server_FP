@@ -1,5 +1,5 @@
 import * as bcrypt from "bcrypt";
-import { Prisma, UserRole, UserStatus } from "../../../generated/prisma";
+import { Prisma, UserRole, UserStatus } from "@prisma/client";
 import { prisma } from "../../../shared/prisma";
 import { fileUploader } from "../../../helpers/fileUploader";
 import { TFile } from "../../interfaces/file";
