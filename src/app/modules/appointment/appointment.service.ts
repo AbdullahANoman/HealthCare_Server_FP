@@ -45,7 +45,7 @@ const createAppointment = async (user: IAuthUser, payload: any) => {
 
   console.log(videoCallingId);
 
-  const result = await prisma.$transaction(async (tx) => {
+  const result = await prisma.$transaction(async (tx:any) => {
     const appointmentData = await tx.appointment.create({
       data: {
         patientId: patientData.id,
@@ -284,12 +284,12 @@ const cancelUnpaidAppointments = async () => {
   });
 
   const unPaidAppointmentIds = unPaidAppointment.map(
-    (appointment) => appointment.id
+    (appointment:any) => appointment.id
   );
 
 
 
-  await prisma.$transaction(async (tx) => {
+  await prisma.$transaction(async (tx:any) => {
    await tx.payment.deleteMany({
       where: {
         appointmentId: {

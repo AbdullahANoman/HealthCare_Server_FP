@@ -1,3 +1,4 @@
+
 import { Admin, Prisma, UserStatus } from "../../../generated/prisma";
 import { paginationHelper } from "../../../helpers/paginationHelper";
 import { prisma } from "../../../shared/prisma";
@@ -103,7 +104,7 @@ const deleteFromDB = async (id: string) => {
       id,
     },
   });
-  const result = await prisma.$transaction(async (tx) => {
+  const result = await prisma.$transaction(async (tx:any) => {
     const adminDeleteData = await tx.admin.delete({
       where: {
         id,
@@ -127,7 +128,7 @@ const softDeleteFromDB = async (id: string) => {
     },
   });
 
-  const result = await prisma.$transaction(async (tx) => {
+  const result = await prisma.$transaction(async (tx:any) => {
     const updateAdmin = await tx.admin.update({
       where: {
         id,

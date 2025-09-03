@@ -195,7 +195,7 @@ const getAllFromDB = async (
   });
 
   const doctorSchedulesIds = doctorSchedules.map(
-    (schedule) => schedule.scheduleId
+    (schedule:any) => schedule.scheduleId
   );
 
 

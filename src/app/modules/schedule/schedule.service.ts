@@ -111,7 +111,7 @@ const getAllFromDB = async (filters: IFilterRequest, options: IPagination, user:
   });
 
   const doctorSchedulesIds = doctorSchedules.map(
-    (schedule) => schedule.scheduleId
+    (schedule:any) => schedule.scheduleId
   );
 
   console.log(doctorSchedulesIds);

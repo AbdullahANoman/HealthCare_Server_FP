@@ -39,7 +39,7 @@ const createIntoDB = async (user: IAuthUser, payload: any) => {
     throw new ApiError(httpStatus.NOT_FOUND, "Review not found");
   }
 
-  await prisma.$transaction(async (tx) => {
+  await prisma.$transaction(async (tx:any) => {
     const result = await tx.review.create({
       data: reviewData,
     });

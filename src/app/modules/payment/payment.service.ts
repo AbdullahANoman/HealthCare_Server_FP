@@ -55,7 +55,7 @@ const validatePayment = async (payload: any) => {
 
   const response = payload;
 
-  await prisma.$transaction(async (tx) => {
+  await prisma.$transaction(async (tx:any) => {
     const paymentData = await tx.payment.update({
       where: {
         transactionId: response.tran_id,

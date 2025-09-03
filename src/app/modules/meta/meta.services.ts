@@ -123,7 +123,7 @@ const getDoctorMetaData = async (user: IAuthUser) => {
   });
 
   const formattedAppointmentStatusDistribution =
-    appointmentStatusDistribution.map((count) => ({
+    appointmentStatusDistribution.map((count:any) => ({
       status: count.status,
       count: Number(count._count.id),
     }));
@@ -165,7 +165,7 @@ const getPatientMetaData = async (user: IAuthUser) => {
   });
 
   const formattedAppointmentStatusDistribution =
-    appointmentStatusDistribution.map((count) => ({
+    appointmentStatusDistribution.map((count:any) => ({
       status: count.status,
       count: Number(count._count.id),
     }));

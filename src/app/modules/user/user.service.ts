@@ -28,7 +28,7 @@ const createAdmin = async (req: Request) => {
   };
   const adminData = req.body.admin;
 
-  const result = await prisma.$transaction(async (tx) => {
+  const result = await prisma.$transaction(async (tx:any) => {
     await tx.user.create({
       data: userData,
     });
@@ -61,7 +61,7 @@ const createDoctor = async (req: Request) => {
   };
   const doctorData = req.body.doctor;
 
-  const result = await prisma.$transaction(async (tx) => {
+  const result = await prisma.$transaction(async (tx:any) => {
     await tx.user.create({
       data: userData,
     });
@@ -94,7 +94,7 @@ const createPatient = async (req: Request) => {
   };
   const patientData = req.body.patient;
 
-  const result = await prisma.$transaction(async (tx) => {
+  const result = await prisma.$transaction(async (tx:any) => {
     await tx.user.create({
       data: userData,
     });
