@@ -19,9 +19,23 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cookie_parser_1.default)());
+const allowedOrigins = [
+    "http://localhost:3001",
+    "https://health-care-client-fp.vercel.app"
+];
 app.use((0, cors_1.default)({
-    origin: "http://localhost:3001",
-    credentials: true
+    origin: function (origin, callback) {
+        // allow requests with no origin (like mobile apps or curl)
+        if (!origin)
+            return callback(null, true);
+        if (allowedOrigins.includes(origin)) {
+            callback(null, true);
+        }
+        else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    credentials: true,
 }));
 // app.use("/api/v1/users", userRoutes);
 // app.use("/api/v1/admins", adminRoutes);
