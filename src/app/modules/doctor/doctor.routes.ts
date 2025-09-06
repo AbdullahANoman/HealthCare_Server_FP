@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get(
   "/",
-  authValidation(UserRole.SUPER_ADMIN, UserRole.ADMIN),
+  authValidation(UserRole.SUPER_ADMIN, UserRole.ADMIN,UserRole.PATIENT),
   doctorController.getAllFromDB
 );
 router.get(

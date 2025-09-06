@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(cors({
-  origin: "http://localhost:3001", 
+  origin: ["http://localhost:3001","https://health-care-client-fp-one.vercel.app/"], 
   credentials: true              
 }));
 
