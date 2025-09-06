@@ -21,7 +21,7 @@ app.use(cookieParser());
 
 const allowedOrigins = [
   "http://localhost:3001",
-  "https://health-care-client-fp-one.vercel.app"
+  "https://health-care-client-fp.vercel.app"
 ];
 
 app.use(
