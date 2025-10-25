@@ -246,6 +246,11 @@ enum Gender {
   FEMALE
 }
 
+enum UserActivity {
+  ONLINE
+  OFFLINE
+}
+
 enum UserRole {
   SUPER_ADMIN
   ADMIN

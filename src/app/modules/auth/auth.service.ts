@@ -15,6 +15,7 @@ const loginUser = async (payload: { email: string; password: string }) => {
       status: UserStatus.ACTIVE,
     },
   });
+
   const isPasswordMatch: Boolean = await bcrypt.compare(
     payload.password,
     userData.password

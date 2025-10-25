@@ -72,7 +72,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     message: "Api Not Found",
     error: {
       path: `${req.originalUrl} is wrong`,
-      message: "your requested path is not found ",
+      message: "Your requested path is not found ",
     },
   });
 });
