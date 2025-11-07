@@ -103,6 +103,7 @@ const getMySchedule = async (
   const total = await prisma.doctorSchedule.count({
     where: whereConditions,
   });
+  console.log(result)
 
   return {
     meta: {
