@@ -12,7 +12,7 @@ router.get(
 );
 router.get(
   "/:id",
-  authValidation(UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  authValidation(UserRole.ADMIN, UserRole.SUPER_ADMIN,UserRole.DOCTOR,UserRole.PATIENT),
   doctorController.getByIdFromDB
 );
 router.patch(
