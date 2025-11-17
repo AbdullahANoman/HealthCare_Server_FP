@@ -132,7 +132,7 @@ const deleteFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
     return result;
 });
 const softDeleteFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    yield prisma_1.prisma.doctor.findUniqueOrThrow({
+    yield prisma_1.prisma.doctor.findFirstOrThrow({
         where: {
             id,
             isDeleted: false,
@@ -161,7 +161,7 @@ const softDeleteFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () 
 });
 const updateIntoDB = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
     const { specialties = [] } = payload, doctorInfo = __rest(payload, ["specialties"]);
-    yield prisma_1.prisma.doctor.findUniqueOrThrow({
+    yield prisma_1.prisma.doctor.findFirstOrThrow({
         where: {
             id,
             isDeleted: false,

@@ -9,10 +9,10 @@ const cors_1 = __importDefault(require("cors"));
 const routes_1 = __importDefault(require("./app/routes"));
 const globalErrorHandler_1 = require("./app/middlewares/globalErrorHandler");
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
-const appointment_service_1 = require("./app/modules/appointment/appointment.service");
-const node_cron_1 = __importDefault(require("node-cron"));
-const ApiError_1 = __importDefault(require("./app/errors/ApiError"));
-const http_status_2 = __importDefault(require("http-status"));
+// import { AppointmentService } from "./app/modules/appointment/appointment.service";
+// import cron from "node-cron";
+// import ApiError from "./app/errors/ApiError";
+// import httpStatus from "http-status";
 const notFound_1 = __importDefault(require("./app/middlewares/notFound"));
 const app = (0, express_1.default)();
 // parser
@@ -21,7 +21,8 @@ app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cookie_parser_1.default)());
 const allowedOrigins = [
     "http://localhost:3001",
-    "https://health-care-client-fp.vercel.app"
+    "http://localhost:3000",
+    "https://health-care-client-fp.vercel.app",
 ];
 app.use((0, cors_1.default)({
     origin: function (origin, callback) {
@@ -39,16 +40,18 @@ app.use((0, cors_1.default)({
 }));
 // app.use("/api/v1/users", userRoutes);
 // app.use("/api/v1/admins", adminRoutes);
-node_cron_1.default.schedule('* * * * *', () => {
-    try {
-        appointment_service_1.AppointmentService.cancelUnpaidAppointments();
-    }
-    catch (error) {
-        throw new ApiError_1.default(http_status_2.default.INTERNAL_SERVER_ERROR, 'Failed to cancel unpaid appointments');
-    }
-});
-app.get('/', (req, res) => {
-    res.send('HealthBridge backend is running 🚀');
+// cron.schedule("* * * * *", () => {
+//   try {
+//     AppointmentService.cancelUnpaidAppointments();
+//   } catch (error) {
+//     throw new ApiError(
+//       httpStatus.INTERNAL_SERVER_ERROR,
+//       "Failed to cancel unpaid appointments"
+//     );
+//   }
+// });
+app.get("/", (req, res) => {
+    res.send("HealthBridge backend is running 🚀");
 });
 app.use("/api/v1", routes_1.default);
 app.use(globalErrorHandler_1.globalErrorHandler);
@@ -60,7 +63,7 @@ app.use((req, res, next) => {
         message: "Api Not Found",
         error: {
             path: `${req.originalUrl} is wrong`,
-            message: "your requested path is not found ",
+            message: "Your requested path is not found ",
         },
     });
 });

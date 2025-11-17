@@ -57,7 +57,7 @@ const sendEmail_1 = __importDefault(require("./sendEmail"));
 const ApiError_1 = __importDefault(require("../../errors/ApiError"));
 const http_status_1 = __importDefault(require("http-status"));
 const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const userData = yield prisma_1.prisma.user.findUniqueOrThrow({
+    const userData = yield prisma_1.prisma.user.findFirstOrThrow({
         where: {
             email: payload.email,
             status: client_1.UserStatus.ACTIVE,
@@ -92,7 +92,7 @@ const refreshToken = (token) => __awaiter(void 0, void 0, void 0, function* () {
     catch (error) {
         throw new Error("You are not authorized");
     }
-    const isUserExist = yield prisma_1.prisma.user.findUniqueOrThrow({
+    const isUserExist = yield prisma_1.prisma.user.findFirstOrThrow({
         where: {
             email: decodedData.email,
             status: client_1.UserStatus.ACTIVE,
@@ -108,7 +108,7 @@ const refreshToken = (token) => __awaiter(void 0, void 0, void 0, function* () {
     };
 });
 const changePassword = (userData, postData) => __awaiter(void 0, void 0, void 0, function* () {
-    const isUser = yield prisma_1.prisma.user.findUniqueOrThrow({
+    const isUser = yield prisma_1.prisma.user.findFirstOrThrow({
         where: {
             email: userData.email,
             status: client_1.UserStatus.ACTIVE,
@@ -133,7 +133,7 @@ const changePassword = (userData, postData) => __awaiter(void 0, void 0, void 0,
     };
 });
 const forgotPassword = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const userData = yield prisma_1.prisma.user.findUniqueOrThrow({
+    const userData = yield prisma_1.prisma.user.findFirstOrThrow({
         where: {
             email: payload.email,
             status: client_1.UserStatus.ACTIVE,
@@ -153,7 +153,7 @@ const forgotPassword = (payload) => __awaiter(void 0, void 0, void 0, function* 
     (0, sendEmail_1.default)(userData.email, resetLink);
 });
 const resetPassword = (token, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const userData = yield prisma_1.prisma.user.findUniqueOrThrow({
+    const userData = yield prisma_1.prisma.user.findFirstOrThrow({
         where: {
             email: payload.email,
             status: client_1.UserStatus.ACTIVE,

@@ -9,14 +9,14 @@ import ApiError from "../../errors/ApiError";
 import status from "http-status";
 
 const loginUser = async (payload: { email: string; password: string }) => {
-  const userData = await prisma.user.findUniqueOrThrow({
+  const userData = await prisma.user.findFirstOrThrow({
     where: {
       email: payload.email,
       status: UserStatus.ACTIVE,
     },
   });
 
-  const isPasswordMatch: Boolean = await bcrypt.compare(
+  const isPasswordMatch: boolean = await bcrypt.compare(
     payload.password,
     userData.password
   );
@@ -65,7 +65,7 @@ const refreshToken = async (token: string) => {
     throw new Error("You are not authorized");
   }
 
-  const isUserExist = await prisma.user.findUniqueOrThrow({
+  const isUserExist = await prisma.user.findFirstOrThrow({
     where: {
       email: decodedData.email,
       status: UserStatus.ACTIVE,
@@ -93,14 +93,14 @@ const changePassword = async (
     newPassword: string;
   }
 ) => {
-  const isUser = await prisma.user.findUniqueOrThrow({
+  const isUser = await prisma.user.findFirstOrThrow({
     where: {
       email: userData.email,
       status: UserStatus.ACTIVE,
     },
   });
 
-  const isPasswordMatch: Boolean = await bcrypt.compare(
+  const isPasswordMatch: boolean = await bcrypt.compare(
     postData.oldPassword,
     isUser.password
   );
@@ -125,7 +125,7 @@ const changePassword = async (
 };
 
 const forgotPassword = async (payload: { email: string }) => {
-  const userData = await prisma.user.findUniqueOrThrow({
+  const userData = await prisma.user.findFirstOrThrow({
     where: {
       email: payload.email,
       status: UserStatus.ACTIVE,
@@ -159,7 +159,7 @@ const resetPassword = async (
     password: string;
   }
 ) => {
-  const userData = await prisma.user.findUniqueOrThrow({
+  const userData = await prisma.user.findFirstOrThrow({
     where: {
       email: payload.email,
       status: UserStatus.ACTIVE,

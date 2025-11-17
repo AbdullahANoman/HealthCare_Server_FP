@@ -274,7 +274,7 @@ const getMe = (user) => __awaiter(void 0, void 0, void 0, function* () {
 });
 const updateMyProfile = (user, req) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(user);
-    const userInfo = yield prisma_1.prisma.user.findUniqueOrThrow({
+    const userInfo = yield prisma_1.prisma.user.findFirstOrThrow({
         where: {
             email: user.email,
             status: client_1.UserStatus.ACTIVE,

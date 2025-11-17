@@ -104,7 +104,7 @@ type PatientUpdatePayload = Partial<Patient> & {
 
 const updateIntoDB = async (id: string, payload: PatientUpdatePayload) => {
   const { patientHealthData, medicalReport, ...patientData } = payload;
-  const patientInfo = await prisma.patient.findUniqueOrThrow({
+  const patientInfo = await prisma.patient.findFirstOrThrow({
     where: {
       id,
       isDeleted: false,
@@ -187,7 +187,7 @@ const deleteFromDB = async (id: string) => {
 };
 
 const softDeleteFromDB = async (id: string) => {
-  await prisma.patient.findUniqueOrThrow({
+  await prisma.patient.findFirstOrThrow({
     where: {
       id,
       isDeleted: false,
