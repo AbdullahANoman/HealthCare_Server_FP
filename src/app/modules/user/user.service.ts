@@ -249,7 +249,7 @@ const getMe = async (user: IAuthUser) => {
 const updateMyProfile = async (user: IAuthUser, req: Request) => {
   console.log(user);
 
-  const userInfo = await prisma.user.findUniqueOrThrow({
+  const userInfo = await prisma.user.findFirstOrThrow({
     where: {
       email: user.email,
       status: UserStatus.ACTIVE,

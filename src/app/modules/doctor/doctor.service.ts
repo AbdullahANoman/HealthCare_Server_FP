@@ -126,7 +126,7 @@ const deleteFromDB = async (id: string) => {
 };
 
 const softDeleteFromDB = async (id: string) => {
-  await prisma.doctor.findUniqueOrThrow({
+  await prisma.doctor.findFirstOrThrow({
     where: {
       id,
       isDeleted: false,
@@ -168,7 +168,7 @@ type DoctorUpdatePayload = Partial<Doctor> & {
 
 const updateIntoDB = async (id: string, payload: DoctorUpdatePayload) => {
   const { specialties = [], ...doctorInfo } = payload;
-  await prisma.doctor.findUniqueOrThrow({
+  await prisma.doctor.findFirstOrThrow({
     where: {
       id,
       isDeleted: false,

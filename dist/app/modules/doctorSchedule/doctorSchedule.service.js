@@ -101,6 +101,7 @@ const getMySchedule = (filters, options, user) => __awaiter(void 0, void 0, void
     const total = yield prisma_1.prisma.doctorSchedule.count({
         where: whereConditions,
     });
+    console.log(result);
     return {
         meta: {
             page,

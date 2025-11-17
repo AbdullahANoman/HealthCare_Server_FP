@@ -10,7 +10,7 @@ const authValidation_1 = require("./../../middlewares/authValidation");
 const doctor_controller_1 = require("./doctor.controller");
 const router = express_1.default.Router();
 router.get("/", (0, authValidation_1.authValidation)(client_1.UserRole.SUPER_ADMIN, client_1.UserRole.ADMIN, client_1.UserRole.PATIENT), doctor_controller_1.doctorController.getAllFromDB);
-router.get("/:id", (0, authValidation_1.authValidation)(client_1.UserRole.ADMIN, client_1.UserRole.SUPER_ADMIN), doctor_controller_1.doctorController.getByIdFromDB);
+router.get("/:id", (0, authValidation_1.authValidation)(client_1.UserRole.ADMIN, client_1.UserRole.SUPER_ADMIN, client_1.UserRole.DOCTOR, client_1.UserRole.PATIENT), doctor_controller_1.doctorController.getByIdFromDB);
 router.patch("/:id", (0, authValidation_1.authValidation)(client_1.UserRole.SUPER_ADMIN, client_1.UserRole.ADMIN, client_1.UserRole.DOCTOR), 
 //   validateRequest(adminValidationSchemas.update),
 doctor_controller_1.doctorController.updateIntoDB);
