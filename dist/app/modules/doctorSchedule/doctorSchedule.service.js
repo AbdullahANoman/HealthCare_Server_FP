@@ -46,6 +46,7 @@ const getMySchedule = (filters, options, user) => __awaiter(void 0, void 0, void
     const { page, limit, skip, sortBy, sortOrder } = paginationHelper_1.paginationHelper.calculatePagination(options);
     const { startDate, endDate } = filters, filteredData = __rest(filters, ["startDate", "endDate"]);
     const andConditions = [];
+    console.log(user);
     if (startDate && endDate) {
         andConditions.push({
             AND: [
@@ -90,6 +91,21 @@ const getMySchedule = (filters, options, user) => __awaiter(void 0, void 0, void
         where: whereConditions,
         skip: skip,
         take: limit,
+        include: {
+            appointment: {
+                select: {
+                    status: true,
+                    videoCallingId: true,
+                    paymentStatus: true,
+                },
+            },
+            schedule: {
+                select: {
+                    startDateTime: true,
+                    endDateTime: true,
+                },
+            },
+        },
         // orderBy:
         //   sortBy && sortOrder
         //     ? {
@@ -101,7 +117,6 @@ const getMySchedule = (filters, options, user) => __awaiter(void 0, void 0, void
     const total = yield prisma_1.prisma.doctorSchedule.count({
         where: whereConditions,
     });
-    console.log(result);
     return {
         meta: {
             page,

@@ -39,6 +39,8 @@ const getMySchedule = async (
   const { startDate, endDate, ...filteredData } = filters;
   const andConditions: Prisma.DoctorScheduleWhereInput[] = [];
 
+  console.log(user);
+
   if (startDate && endDate) {
     andConditions.push({
       AND: [
@@ -90,6 +92,21 @@ const getMySchedule = async (
     where: whereConditions,
     skip: skip,
     take: limit,
+    include: {
+      appointment: {
+        select: {
+          status: true,
+          videoCallingId: true,
+          paymentStatus: true,
+        },
+      },
+      schedule: {
+        select: {
+          startDateTime: true,
+          endDateTime: true,
+        },
+      },
+    },
     // orderBy:
     //   sortBy && sortOrder
     //     ? {
@@ -103,7 +120,6 @@ const getMySchedule = async (
   const total = await prisma.doctorSchedule.count({
     where: whereConditions,
   });
-  console.log(result)
 
   return {
     meta: {
@@ -196,10 +212,8 @@ const getAllFromDB = async (
   });
 
   const doctorSchedulesIds = doctorSchedules.map(
-    (schedule:any) => schedule.scheduleId
+    (schedule: any) => schedule.scheduleId
   );
-
-
 
   const result = await prisma.schedule.findMany({
     where: {

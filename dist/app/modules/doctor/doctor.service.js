@@ -107,6 +107,9 @@ const getByIdFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
         where: {
             id,
         },
+        include: {
+            doctorSpecialties: true
+        }
     });
     return result;
 });
