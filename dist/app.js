@@ -22,7 +22,7 @@ app.use((0, cookie_parser_1.default)());
 const allowedOrigins = [
     "http://localhost:3001",
     "http://localhost:3000",
-    "https://health-care-client-fp.vercel.app",
+    "https://health-care-client-fp-u61d.vercel.app",
 ];
 app.use((0, cors_1.default)({
     origin: function (origin, callback) {
