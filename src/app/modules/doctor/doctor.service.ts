@@ -99,6 +99,9 @@ const getByIdFromDB = async (id: string): Promise<Admin | null> => {
     where: {
       id,
     },
+    include:{
+      doctorSpecialties:true
+    }
   });
   return result;
 };
