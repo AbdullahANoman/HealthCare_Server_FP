@@ -13,7 +13,6 @@ import status from "http-status";
 import { IAuthUser } from "../../interfaces/common";
 
 const createAdmin = async (req: Request) => {
-  console.log(req.body)
   const file = req.file as TFile;
   if (file) {
     const uploadToCloudinary = await fileUploader.uploadToCloudinary(file);
@@ -80,6 +79,7 @@ const createDoctor = async (req: Request) => {
 };
 
 const createPatient = async (req: Request) => {
+  console.log(req)
   const file = req.file as TFile;
   if (file) {
     const uploadToCloudinary = await fileUploader.uploadToCloudinary(file);
@@ -247,7 +247,6 @@ const getMe = async (user: IAuthUser) => {
 };
 
 const updateMyProfile = async (user: IAuthUser, req: Request) => {
-  console.log(user);
 
   const userInfo = await prisma.user.findFirstOrThrow({
     where: {

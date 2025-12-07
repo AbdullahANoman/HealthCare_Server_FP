@@ -28,6 +28,7 @@ router.post("/create-doctor", (0, authValidation_1.authValidation)(client_1.User
     return user_controller_1.userController.createDoctor(req, res, next);
 });
 router.post("/create-patient", fileUploader_1.fileUploader.upload.single("file"), (req, res, next) => {
+    console.log(req.body);
     req.body = user_validation_1.userValidations.createPatient.parse(JSON.parse(req.body.data));
     return user_controller_1.userController.createPatient(req, res, next);
 });

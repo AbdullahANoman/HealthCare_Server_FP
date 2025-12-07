@@ -26,7 +26,6 @@ const prisma_1 = require("../../../shared/prisma");
 const paginationHelper_1 = require("../../../helpers/paginationHelper");
 const createIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const { startDate, endDate, startTime, endTime } = payload;
-    console.log(startDate, startTime);
     const intervalTime = 30;
     const schedule = [];
     const currentDate = new Date(startDate);
@@ -97,7 +96,6 @@ const getAllFromDB = (filters, options, user) => __awaiter(void 0, void 0, void 
         },
     });
     const doctorSchedulesIds = doctorSchedules.map((schedule) => schedule.scheduleId);
-    console.log(doctorSchedulesIds);
     const result = yield prisma_1.prisma.schedule.findMany({
         where: Object.assign(Object.assign({}, whereConditions), { id: {
                 notIn: doctorSchedulesIds,

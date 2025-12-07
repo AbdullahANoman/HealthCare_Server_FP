@@ -46,7 +46,11 @@ const getMySchedule = (filters, options, user) => __awaiter(void 0, void 0, void
     const { page, limit, skip, sortBy, sortOrder } = paginationHelper_1.paginationHelper.calculatePagination(options);
     const { startDate, endDate } = filters, filteredData = __rest(filters, ["startDate", "endDate"]);
     const andConditions = [];
-    console.log(user);
+    const doctorData = yield prisma_1.prisma.doctor.findFirstOrThrow({
+        where: {
+            email: user.email,
+        },
+    });
     if (startDate && endDate) {
         andConditions.push({
             AND: [
@@ -88,7 +92,7 @@ const getMySchedule = (filters, options, user) => __awaiter(void 0, void 0, void
         AND: andConditions,
     };
     const result = yield prisma_1.prisma.doctorSchedule.findMany({
-        where: whereConditions,
+        where: Object.assign(Object.assign({}, whereConditions), { doctorId: doctorData.id }),
         skip: skip,
         take: limit,
         include: {
@@ -106,16 +110,9 @@ const getMySchedule = (filters, options, user) => __awaiter(void 0, void 0, void
                 },
             },
         },
-        // orderBy:
-        //   sortBy && sortOrder
-        //     ? {
-        //         [sortBy]: sortOrder,
-        //       }
-        //     : {
-        //     },
     });
     const total = yield prisma_1.prisma.doctorSchedule.count({
-        where: whereConditions,
+        where: Object.assign(Object.assign({}, whereConditions), { doctorId: doctorData.id }),
     });
     return {
         meta: {
@@ -154,22 +151,24 @@ const deleteFromDB = (user, scheduleId) => __awaiter(void 0, void 0, void 0, fun
 });
 const getAllFromDB = (filters, options, user) => __awaiter(void 0, void 0, void 0, function* () {
     const { page, limit, skip, sortBy, sortOrder } = paginationHelper_1.paginationHelper.calculatePagination(options);
-    const { startDate, endDate } = filters, filteredData = __rest(filters, ["startDate", "endDate"]);
+    const { startDate, endDate, doctorId } = filters, filteredData = __rest(filters, ["startDate", "endDate", "doctorId"]);
     const andConditions = [];
     if (startDate && endDate) {
         andConditions.push({
-            AND: [
-                {
-                    startDateTime: {
-                        gte: startDate,
+            schedule: {
+                AND: [
+                    {
+                        startDateTime: {
+                            gte: startDate,
+                        },
                     },
-                },
-                {
-                    endDateTime: {
-                        lte: endDate,
+                    {
+                        endDateTime: {
+                            lte: endDate,
+                        },
                     },
-                },
-            ],
+                ],
+            },
         });
     }
     if (Object.keys(filteredData).length > 0) {
@@ -184,30 +183,26 @@ const getAllFromDB = (filters, options, user) => __awaiter(void 0, void 0, void 
     const whereConditions = {
         AND: andConditions,
     };
+    // Build doctor schedule query condition
+    const doctorScheduleWhere = {};
+    // If doctorId is provided in filters, use it
+    if (doctorId) {
+        doctorScheduleWhere.doctorId = doctorId;
+    }
     const doctorSchedules = yield prisma_1.prisma.doctorSchedule.findMany({
-        where: {
-            doctor: {
-                email: user.email,
-            },
-        },
+        where: doctorScheduleWhere,
     });
     const doctorSchedulesIds = doctorSchedules.map((schedule) => schedule.scheduleId);
-    const result = yield prisma_1.prisma.schedule.findMany({
-        where: Object.assign(Object.assign({}, whereConditions), { id: {
-                notIn: doctorSchedulesIds,
-            } }),
+    const result = yield prisma_1.prisma.doctorSchedule.findMany({
+        where: Object.assign(Object.assign({}, whereConditions), { doctorId: doctorId }),
         skip: skip,
         take: limit,
-        orderBy: sortBy && sortOrder
-            ? {
-                [sortBy]: sortOrder,
-            }
-            : { createdAt: "desc" },
+        include: {
+            schedule: true,
+        },
     });
-    const total = yield prisma_1.prisma.schedule.count({
-        where: Object.assign(Object.assign({}, whereConditions), { id: {
-                notIn: doctorSchedulesIds,
-            } }),
+    const total = yield prisma_1.prisma.doctorSchedule.count({
+        where: Object.assign(Object.assign({}, whereConditions), { doctorId }),
     });
     return {
         meta: {

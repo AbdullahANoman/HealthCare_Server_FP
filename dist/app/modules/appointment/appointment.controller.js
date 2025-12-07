@@ -57,7 +57,6 @@ const changeAppointmentStatus = (0, catchAsync_1.catchAsync)((req, res) => __awa
     const { id } = req.params;
     const { status } = req.body;
     const user = req.user;
-    console.log(status, id, user);
     const result = yield appointment_service_1.AppointmentService.changeAppointmentStatus(id, status, user);
     (0, sendResponse_1.sendResponse)(res, {
         statusCode: http_status_1.default.OK,

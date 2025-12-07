@@ -119,7 +119,6 @@ const updateIntoDB = async (id: string, payload: PatientUpdatePayload) => {
       data: patientData,
     });
 
-    console.log(patientHealthData);
 
     //create or update patientHealthData
     if (patientHealthData) {

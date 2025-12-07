@@ -66,7 +66,6 @@ const user_constant_1 = require("./user.constant");
 const ApiError_1 = __importDefault(require("../../errors/ApiError"));
 const http_status_1 = __importDefault(require("http-status"));
 const createAdmin = (req) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
     const file = req.file;
     if (file) {
         const uploadToCloudinary = yield fileUploader_1.fileUploader.uploadToCloudinary(file);
@@ -125,6 +124,7 @@ const createDoctor = (req) => __awaiter(void 0, void 0, void 0, function* () {
     };
 });
 const createPatient = (req) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req);
     const file = req.file;
     if (file) {
         const uploadToCloudinary = yield fileUploader_1.fileUploader.uploadToCloudinary(file);
@@ -273,7 +273,6 @@ const getMe = (user) => __awaiter(void 0, void 0, void 0, function* () {
     return Object.assign(Object.assign({}, userInfo), profileInfo);
 });
 const updateMyProfile = (user, req) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(user);
     const userInfo = yield prisma_1.prisma.user.findFirstOrThrow({
         where: {
             email: user.email,

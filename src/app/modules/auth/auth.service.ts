@@ -131,6 +131,7 @@ const forgotPassword = async (payload: { email: string }) => {
       status: UserStatus.ACTIVE,
     },
   });
+
   if (!userData) {
     throw new ApiError(status.UNAUTHORIZED, "You are not a user");
   }

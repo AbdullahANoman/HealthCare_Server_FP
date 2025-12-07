@@ -58,7 +58,7 @@ const deleteFromDB: RequestHandler = catchAsync(
 const getAllFromDB: RequestHandler = catchAsync(
   async (req: Request & {user?:IAuthUser}, res: Response) => {
     const user = req?.user;
-    const query = pick(req.query, ["startDate","endDate"]);
+    const query = pick(req.query, ["startDate","endDate","doctorId"]);
     const options = pick(req.query, ["page", "limit", "sortBy", "sortOrder"]);
     const result = await doctorScheduleServices.getAllFromDB(query, options,user as IAuthUser);
     sendResponse(res, {

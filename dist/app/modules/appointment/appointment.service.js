@@ -55,7 +55,6 @@ const createAppointment = (user, payload) => __awaiter(void 0, void 0, void 0, f
         doctorData.id +
         "-" +
         patientData.id;
-    console.log(videoCallingId);
     const result = yield prisma_1.prisma.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
         const appointmentData = yield tx.appointment.create({
             data: {
@@ -94,7 +93,6 @@ const createAppointment = (user, payload) => __awaiter(void 0, void 0, void 0, f
             today.getHours() +
             "-" +
             today.getMinutes();
-        console.log(transactionId);
         yield tx.payment.create({
             data: {
                 appointmentId: appointmentData.id,
@@ -148,6 +146,7 @@ const getAllFromDB = (filters, options) => __awaiter(void 0, void 0, void 0, fun
         include: {
             doctor: true,
             patient: true,
+            schedule: true,
         },
     });
     const total = yield prisma_1.prisma.appointment.count({
@@ -266,7 +265,6 @@ const cancelUnpaidAppointments = () => __awaiter(void 0, void 0, void 0, functio
             },
         });
         for (const appointmentId of unPaidAppointment) {
-            console.log(appointmentId);
             yield tx.doctorSchedule.updateMany({
                 where: {
                     doctorId: appointmentId.doctorId,

@@ -53,7 +53,7 @@ const deleteFromDB = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0
 }));
 const getAllFromDB = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = req === null || req === void 0 ? void 0 : req.user;
-    const query = (0, pick_1.default)(req.query, ["startDate", "endDate"]);
+    const query = (0, pick_1.default)(req.query, ["startDate", "endDate", "doctorId"]);
     const options = (0, pick_1.default)(req.query, ["page", "limit", "sortBy", "sortOrder"]);
     const result = yield doctorSchedule_service_1.doctorScheduleServices.getAllFromDB(query, options, user);
     (0, sendResponse_1.sendResponse)(res, {

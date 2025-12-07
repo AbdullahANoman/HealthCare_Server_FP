@@ -3,7 +3,6 @@ import { fileUploader } from "../../../helpers/fileUploader";
 import { prisma } from "../../../shared/prisma";
 
 const insertIntoDB = async (req: Request) => {
-  console.log(req.body);
   const file = req.file;
   if (file) {
     const uploadToCloudinary = await fileUploader.uploadToCloudinary(file);
