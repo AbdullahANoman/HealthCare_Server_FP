@@ -112,7 +112,6 @@ const updateIntoDB = (id, payload) => __awaiter(void 0, void 0, void 0, function
             },
             data: patientData,
         });
-        console.log(patientHealthData);
         //create or update patientHealthData
         if (patientHealthData) {
             yield tx.patientHealthData.upsert({

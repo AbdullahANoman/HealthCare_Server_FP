@@ -9,7 +9,6 @@ import { IPagination } from "../../interfaces/paginationInterface";
 const createIntoDB = async (payload: ISchedule): Promise<Schedule[]> => {
   const { startDate, endDate, startTime, endTime } = payload;
 
-  console.log(startDate, startTime);
   const intervalTime = 30;
   const schedule = [];
 
@@ -114,7 +113,6 @@ const getAllFromDB = async (filters: IFilterRequest, options: IPagination, user:
     (schedule:any) => schedule.scheduleId
   );
 
-  console.log(doctorSchedulesIds);
 
   const result = await prisma.schedule.findMany({
     where: {

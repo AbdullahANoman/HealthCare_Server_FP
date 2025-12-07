@@ -13,7 +13,6 @@ exports.specialtiesServices = void 0;
 const fileUploader_1 = require("../../../helpers/fileUploader");
 const prisma_1 = require("../../../shared/prisma");
 const insertIntoDB = (req) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
     const file = req.file;
     if (file) {
         const uploadToCloudinary = yield fileUploader_1.fileUploader.uploadToCloudinary(file);

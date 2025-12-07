@@ -43,7 +43,6 @@ const createAppointment = async (user: IAuthUser, payload: any) => {
     "-" +
     patientData.id;
 
-  console.log(videoCallingId);
 
   const result = await prisma.$transaction(async (tx:any) => {
     const appointmentData = await tx.appointment.create({
@@ -88,7 +87,6 @@ const createAppointment = async (user: IAuthUser, payload: any) => {
       "-" +
       today.getMinutes();
 
-    console.log(transactionId);
     await tx.payment.create({
       data: {
         appointmentId: appointmentData.id,
@@ -150,6 +148,7 @@ const getAllFromDB = async (filters: any, options: IPagination) => {
     include: {
       doctor: true,
       patient: true,
+      schedule: true,
     },
   });
   const total = await prisma.appointment.count({
@@ -305,7 +304,6 @@ const cancelUnpaidAppointments = async () => {
     });
 
     for (const appointmentId of unPaidAppointment) {
-        console.log(appointmentId)
       await tx.doctorSchedule.updateMany({
         where: {
           doctorId:appointmentId.doctorId,

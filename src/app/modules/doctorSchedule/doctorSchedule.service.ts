@@ -39,7 +39,11 @@ const getMySchedule = async (
   const { startDate, endDate, ...filteredData } = filters;
   const andConditions: Prisma.DoctorScheduleWhereInput[] = [];
 
-  console.log(user);
+  const doctorData = await prisma.doctor.findFirstOrThrow({
+    where: {
+      email: user.email,
+    },
+  });
 
   if (startDate && endDate) {
     andConditions.push({
@@ -89,7 +93,10 @@ const getMySchedule = async (
   };
 
   const result = await prisma.doctorSchedule.findMany({
-    where: whereConditions,
+    where: {
+      ...whereConditions,
+      doctorId: doctorData.id,
+    },
     skip: skip,
     take: limit,
     include: {
@@ -107,18 +114,13 @@ const getMySchedule = async (
         },
       },
     },
-    // orderBy:
-    //   sortBy && sortOrder
-    //     ? {
-    //         [sortBy]: sortOrder,
-    //       }
-    //     : {
-
-    //     },
   });
 
   const total = await prisma.doctorSchedule.count({
-    where: whereConditions,
+    where: {
+      ...whereConditions,
+      doctorId: doctorData.id,
+    },
   });
 
   return {
@@ -169,23 +171,25 @@ const getAllFromDB = async (
 ) => {
   const { page, limit, skip, sortBy, sortOrder } =
     paginationHelper.calculatePagination(options);
-  const { startDate, endDate, ...filteredData } = filters;
-  const andConditions: Prisma.ScheduleWhereInput[] = [];
+  const { startDate, endDate, doctorId, ...filteredData } = filters;
+  const andConditions: Prisma.DoctorScheduleWhereInput[] = [];
 
   if (startDate && endDate) {
     andConditions.push({
-      AND: [
-        {
-          startDateTime: {
-            gte: startDate,
+      schedule: {
+        AND: [
+          {
+            startDateTime: {
+              gte: startDate,
+            },
           },
-        },
-        {
-          endDateTime: {
-            lte: endDate,
+          {
+            endDateTime: {
+              lte: endDate,
+            },
           },
-        },
-      ],
+        ],
+      },
     });
   }
 
@@ -199,45 +203,42 @@ const getAllFromDB = async (
     });
   }
 
-  const whereConditions: Prisma.ScheduleWhereInput = {
+  const whereConditions: Prisma.DoctorScheduleWhereInput = {
     AND: andConditions,
   };
 
+  // Build doctor schedule query condition
+  const doctorScheduleWhere: Prisma.DoctorScheduleWhereInput = {};
+
+  // If doctorId is provided in filters, use it
+  if (doctorId) {
+    doctorScheduleWhere.doctorId = doctorId;
+  }
+
   const doctorSchedules = await prisma.doctorSchedule.findMany({
-    where: {
-      doctor: {
-        email: user.email,
-      },
-    },
+    where: doctorScheduleWhere,
   });
 
   const doctorSchedulesIds = doctorSchedules.map(
     (schedule: any) => schedule.scheduleId
   );
 
-  const result = await prisma.schedule.findMany({
+  const result = await prisma.doctorSchedule.findMany({
     where: {
       ...whereConditions,
-      id: {
-        notIn: doctorSchedulesIds,
-      },
+      doctorId: doctorId,
     },
     skip: skip,
     take: limit,
-    orderBy:
-      sortBy && sortOrder
-        ? {
-            [sortBy]: sortOrder,
-          }
-        : { createdAt: "desc" },
+    include: {
+      schedule: true,
+    },
   });
 
-  const total = await prisma.schedule.count({
+  const total = await prisma.doctorSchedule.count({
     where: {
       ...whereConditions,
-      id: {
-        notIn: doctorSchedulesIds,
-      },
+      doctorId,
     },
   });
 
