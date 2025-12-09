@@ -17,6 +17,7 @@ const payment_routes_1 = require("../modules/payment/payment.routes");
 const prescription_routes_1 = require("../modules/prescription/prescription.routes");
 const review_routes_1 = require("../modules/review/review.routes");
 const meta_routes_1 = require("../modules/meta/meta.routes");
+const SSL_route_1 = require("../modules/SSL/SSL.route");
 const router = express_1.default.Router();
 const modulesRoutes = [
     {
@@ -71,6 +72,10 @@ const modulesRoutes = [
         path: "/meta",
         route: meta_routes_1.MetaRoutes,
     },
+    {
+        path: "/ssl",
+        route: SSL_route_1.SSLRoutes,
+    }
 ];
 modulesRoutes.forEach((item) => router.use(item.path, item.route));
 exports.default = router;

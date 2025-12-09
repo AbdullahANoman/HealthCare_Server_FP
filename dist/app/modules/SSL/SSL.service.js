@@ -17,6 +17,7 @@ const axios_1 = __importDefault(require("axios"));
 const config_1 = __importDefault(require("../../../config"));
 const http_status_1 = __importDefault(require("http-status"));
 const ApiError_1 = __importDefault(require("../../errors/ApiError"));
+const prisma_1 = require("../../../shared/prisma");
 const initPayment = (paymentData) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = {
@@ -77,7 +78,12 @@ const validatePayment = (payload) => __awaiter(void 0, void 0, void 0, function*
         throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, "Payment validation failed");
     }
 });
+const getAllPayments = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.prisma.payment.findMany({});
+    return result;
+});
 exports.SSlService = {
     initPayment,
-    validatePayment
+    validatePayment,
+    getAllPayments
 };
