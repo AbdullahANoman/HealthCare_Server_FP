@@ -2,6 +2,7 @@ import axios from "axios";
 import config from "../../../config";
 import httpStatus from "http-status";
 import ApiError from "../../errors/ApiError";
+import { prisma } from "../../../shared/prisma";
 
 const initPayment = async (paymentData: any) => {
   try {
@@ -55,8 +56,6 @@ const initPayment = async (paymentData: any) => {
 
 const validatePayment = async (payload: any) => {
   try {
-
-
     const response = await axios({
       method: "GET",
       url: `${config.ssl.sslValidationApi}?val_id=${payload.val_id}&store_id=${config.ssl.storeId}&store_passwd=${config.ssl.storePass}&format=json`,
@@ -68,7 +67,12 @@ const validatePayment = async (payload: any) => {
   }
 };
 
+const getAllPayments = async () => {
+  const result = await prisma.payment.findMany({});
+  return result;
+};
 export const SSlService = {
   initPayment,
-  validatePayment
+  validatePayment,
+  getAllPayments
 };

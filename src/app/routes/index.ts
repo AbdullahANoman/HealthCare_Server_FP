@@ -12,6 +12,7 @@ import { PaymentRoutes } from "../modules/payment/payment.routes";
 import { PrescriptionRoutes } from "../modules/prescription/prescription.routes";
 import { ReviewRoutes } from "../modules/review/review.routes";
 import { MetaRoutes } from "../modules/meta/meta.routes";
+import { SSLRoutes } from "../modules/SSL/SSL.route";
 
 const router = express.Router();
 
@@ -68,6 +69,10 @@ const modulesRoutes = [
     path: "/meta",
     route: MetaRoutes,
   },
+  {
+    path: "/ssl",
+    route: SSLRoutes,
+  }
 ];
 
 modulesRoutes.forEach((item) => router.use(item.path, item.route));
