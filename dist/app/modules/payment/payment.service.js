@@ -37,6 +37,7 @@ const initPayment = (appointmentId) => __awaiter(void 0, void 0, void 0, functio
     const result = yield SSL_service_1.SSlService.initPayment(paymentInformation);
     return {
         paymentUrl: result.GatewayPageURL,
+        transactionId: paymentData.transactionId,
     };
 });
 // query for validation ipn setting 

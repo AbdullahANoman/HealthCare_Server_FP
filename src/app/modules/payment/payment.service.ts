@@ -29,6 +29,7 @@ const initPayment = async (appointmentId: string) => {
 
   return {
     paymentUrl: result.GatewayPageURL,
+    transactionId: paymentData.transactionId,
   };
 };
 
